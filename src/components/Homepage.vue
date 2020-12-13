@@ -38,13 +38,17 @@
                              :style="{ 'background-color': RawData.BackgroundColor }">
                              <div v-for="(list, index) in RawData.fields" :key="index">
                                 <div v-if="list.marquee">
-                                  <marquee-text class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement" :style="{'color' : list.marquee.color}">
+                                  <marquee class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement" 
+                                    bgcolor="white" scrolldelay="120" scrollamount="6" :style="{'text-color' : list.marquee.color}">
+                                    {{list.marquee.t}}
+                                  </marquee>
+                                  <!-- <marquee-text class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement" :repeat=1 :color="list.marquee.color">
                                    {{list.marquee.t}}
-                                </marquee-text>
+                                </marquee-text> -->
                                 </div>
 
                                 <div v-if="list.text">
-                                  <span title="Select Text" style="font-size: 20px" :style="{'color' : list.text.color}">
+                                  <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : list.text.color}">
                                     {{list.text.t}}
                                   </span>
                                 </div>
@@ -54,24 +58,58 @@
                                       title="Select Button" data-type="ButtonElement" style="height: 50px"
                                       :style="{'background-color' : list.button.color}">
                                     <a :href="list.button.link">
-                                    <span title="Select Text" style="font-size: 20px">
+                                    <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : list.button.textcolor}">
                                     {{list.button.t}}
                                   </span>
                                   </a>
                                   </div>
                                 </div>
 
-                                <div v-if="list.container">
-                                  <div class="ivr-el ivr-container elEditing"
-                                      title="Select Container" data-type="ContainerElement" style="height: 100px"
-                                      :style="{'background-color' : list.container.color}">
-                                    <a :href="list.container.link">
-                                    <span title="Select Text" style="font-size: 20px">
-                                    {{list.container.t}}
-                                  </span>
-                                  </a>
-                                  </div>
+                                <div v-if="list.containerdata">
+                                    <div v-for="container of list.containerdata" :key="container">
+                                      <div class="ivr-el ivr-container"
+                                        title="Select Container" data-type="ContainerElement" style="height: 50px;width:50%;float:left"
+                                        :style="{'background-color' : container.backgroundcolor}">
+                                      <div>
+                                        <div v-for="col of container.column" :key="col">
+                                          <div class="ivr-el ivr-button"
+                                          title="Select Button" data-type="ButtonElement" style="height: 50px"
+                                          :style="{'background-color' : col.buttoncolor}">
+                                            <a :href="col.link">
+                                              <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
+                                    
+                                              {{col.t}}
+                                              </span>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
                                 </div>
+
+                                <div v-if="list.threecontainerdata">
+                                  <div v-for="container of list.threecontainerdata" :key="container">
+                                      <div class="ivr-el ivr-container"
+                                        title="Select Container" data-type="ContainerElement" style="height: 50px;width:33.33%;float:left"
+                                        :style="{'background-color' : container.backgroundcolor}">
+                                      <div>
+                                        <div v-for="col of container.column" :key="col">
+                                          <div class="ivr-el ivr-button"
+                                          title="Select Button" data-type="ButtonElement" style="height: 50px"
+                                          :style="{'background-color' : col.buttoncolor}">
+                                            <a :href="col.link">
+                                             <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
+                                                {{col.t}}
+                                              </span>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                  
 
                                 <div v-if="list.image">
                                   <div data-toggle="tooltip" data-placement="top" title="Select Image"
@@ -81,12 +119,14 @@
                                 </div>
                                 </div>
 
-                                <div v-if="list.slider">
-                                  <div  data-toggle="tooltip" data-placement="top" title="Select Slider"
+                                <div v-if="list.sliderdata">
+                                  <div v-for="slider of list.sliderdata" :key="slider">
+                                    <div  data-toggle="tooltip" data-placement="top" title="Select Slider"
                                     class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;">
-                                  <img data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                      class="ivr-el ivr-image elEditing" :src="list.slider" data-type="ImageElement">
-                                </div>
+                                      <img data-toggle="tooltip" data-placement="top" title="Select Slider"
+                                          class="ivr-el ivr-image elEditing" :src="slider.image" data-type="ImageElement">
+                                    </div>
+                                  </div>
                                 </div>
                                
                                
@@ -290,7 +330,7 @@
                           </div>
                           <div class="edit-selected-element-body block-body">
                             <div class="edit-selected-element-body-group">
-                              <span class="group-title">Color</span>
+                              <span class="group-title">ButtonColor</span>
                               <div class="edit-Color p15">
                                 <div class="background-color">
                                   <label class="odLabelInline">Color</label>
@@ -311,6 +351,16 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="edit-Color p15">
+                                      <div class="text-color">
+                                        <label class="odLabelInline">Text Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertTextColor'"
+                                            v-bind:init-color="templateModel.alertTextColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                              </div>
                           </div>
                           <div class="actions-block block">
                             <div class="actions-selector form-group">
@@ -436,7 +486,7 @@
                                          class="contentEditor">
                                 </div>
                               </div>
-                              <div class="edit-selected-element-body-group">
+                              <!-- <div class="edit-selected-element-body-group">
                                 <span class="group-title">Font Options</span>
                                 <div class="edit-Font-Options p15">
                                   <div class="font-size">
@@ -460,7 +510,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
@@ -482,7 +532,7 @@
                         </div>
                       </div>
 
-                      <!-- container -->
+                      <!--two column container -->
                       <div v-if="selected === 7">
                         <div class="edit-selected-element block ContainerElement">
                           <div class="edit-selected-element-title block-title border-radius-style no-frame">
@@ -490,7 +540,7 @@
                           </div>
                           <div class="edit-selected-element-body block-body">
                             <div class="edit-selected-element-body-group">
-                              <span class="group-title">Color</span>
+                              <span class="group-title">Container Background Color</span>
                               <div class="edit-Color p15">
                                 <div class="background-color">
                                   <label class="odLabelInline">Color</label>
@@ -502,85 +552,96 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- <div class="edit-selected-element-body-group">
+                            <br>
+                            <div class="edit-selected-element-body-group">
                               <span class="group-title">Input Text</span>
                               <div class="edit-Edit-Text p15">
                                 <div class="content-text">
-                                  <input type="text" v-model="newText" data-attr="content" value=""
+                                  <input type="text" v-model="newText" data-attr="content" value="" placeholder="Text"
                                          class="contentEditor">
                                 </div>
                               </div>
+                              <div class="actions-body block-body">
+                                <form class="actions-body-form">
+                                  <div class="linkEditor" data-action="link">
+                                    <br>
+                                    <input type="hidden" name="type" value="default">
+                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
+                                    <br>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="color">
+                                    <div class="edit-Color p15">
+                                      <div class="text-color">
+                                        <label class="odLabelInline">Text Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertTextColor'"
+                                            v-bind:init-color="templateModel.alertTextColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                                      <div class="button-color">
+                                        <label class="odLabelInline">Button Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertButtonColor'"
+                                            v-bind:init-color="templateModel.alertButtonColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                            <!-- <br>
+                            <div class="edit-selected-element-body-group">
+                              <span class="group-title">Input Text for Column two</span>
+                              <div class="edit-Edit-Text p15">
+                                <div class="content-text">
+                                  <input type="text" v-model="newText" data-attr="content" value="" placeholder="Text"
+                                         class="contentEditor">
+                                </div>
+                              </div>
+                              <div class="actions-body block-body">
+                                <form class="actions-body-form">
+                                  <div class="linkEditor" data-action="link">
+                                    <br>
+                                    <input type="hidden" name="type" value="default">
+                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
+                                    <br>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="color">
+                                    <div class="edit-Color p15">
+                                      <div class="text-color">
+                                        <label class="odLabelInline">Text Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertTextColor'"
+                                            v-bind:init-color="templateModel.alertTextColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                                      <div class="button-color">
+                                        <label class="odLabelInline">Button Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertButtonColor'"
+                                            v-bind:init-color="templateModel.alertButtonColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                                    </div>
+                                  </div>
                             </div> -->
                           </div>
-                          <div class="actions-block block">
-                            <div class="actions-selector form-group">
-                              <span class="actions-title block-title">Action</span>
-                              <div>
-                                <select class="el-action" v-model="selectedcontaineraction">
-                                  <option value="" selected disabled>not selected</option>
-                                  <option v-for="action in Containeractions" :value="action.id" :key="action.value">
-                                    {{ action.value }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div v-if="selectedcontaineraction === 1">
-                              <div class="actions-body block-body">
-                                <form class="actions-body-form">
-                                  <div class="linkEditor" data-action="link">
-                                    <br>
-                                    <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
-                                    <br>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div v-if="selectedcontaineraction === 2">
-                              <div class="actions-body block-body">
-                                <form class="actions-body-form">
-                                  <div class="linkEditor" data-action="link">
-                                    <br>
-                                    <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
-                                    <br>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div v-if="selectedcontaineraction === 3">
-                              <div class="actions-body block-body">
-                                <form class="actions-body-form">
-                                  <div class="linkEditor" data-action="link">
-                                    <br>
-                                    <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
-                                    <br>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div v-if="selectedcontaineraction === 4">
-                              <div class="actions-body block-body">
-                                <form class="actions-body-form">
-                                  <div class="linkEditor" data-action="link">
-                                    <br>
-                                    <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
-                                    <br>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
+                        </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                             <a class="undo" style="margin-top: 9px;float:left">
-                              <span>Undo</span><br>
+                              <span >Undo</span><br>
                             </a>
                             <div class="threeButtons" style="float:right">
                               <a class="add-element" data-toggle="tooltip" data-placement="top"
                                  title="Add Selected Element">
-                                <span @click="addContainer">Add</span>
+                                <span @click="addTwoColContainer">Add</span>
                               </a>
                               <!-- <br>
                               <a class="remove-element" data-toggle="tooltip" data-placement="top"
@@ -589,8 +650,93 @@
                               </a> -->
                             </div>
                           </div>
-                        </div>
                       </div>
+
+                      <!--three column container -->
+                      <div v-if="selected === 8">
+                        <div class="edit-selected-element block ContainerElement">
+                          <div class="edit-selected-element-title block-title border-radius-style no-frame">
+                            <span class="ivr-element-title"> Container Options</span>
+                          </div>
+                          <div class="edit-selected-element-body block-body">
+                            <div class="edit-selected-element-body-group">
+                              <span class="group-title">Container Background Color</span>
+                              <div class="edit-Color p15">
+                                <div class="background-color">
+                                  <label class="odLabelInline">Color</label>
+                                  <ColorPickerButton
+                                      v-bind:field-name="'alertContainerColor'"
+                                      v-bind:init-color="templateModel.alertContainerColor"
+                                      v-on:update-color="UpdatedColor"
+                                  ></ColorPickerButton>
+                                </div>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="edit-selected-element-body-group">
+                              <span class="group-title">Input Text</span>
+                              <div class="edit-Edit-Text p15">
+                                <div class="content-text">
+                                  <input type="text" v-model="newText" data-attr="content" value="" placeholder="Text"
+                                         class="contentEditor">
+                                </div>
+                              </div>
+                              <div class="actions-body block-body">
+                                <form class="actions-body-form">
+                                  <div class="linkEditor" data-action="link">
+                                    <br>
+                                    <input type="hidden" name="type" value="default">
+                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
+                                    <br>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="color">
+                                    <div class="edit-Color p15">
+                                      <div class="text-color">
+                                        <label class="odLabelInline">Text Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertTextColor'"
+                                            v-bind:init-color="templateModel.alertTextColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                                      <div class="button-color">
+                                        <label class="odLabelInline">Button Color</label>
+                                        <ColorPickerButton
+                                            v-bind:field-name="'alertButtonColor'"
+                                            v-bind:init-color="templateModel.alertButtonColor"
+                                            v-on:update-color="UpdatedColor"
+                                        ></ColorPickerButton>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
+                            <a class="undo" style="margin-top: 9px;float:left">
+                              <span >Undo</span><br>
+                            </a>
+                            <div class="threeButtons" style="float:right">
+                              <a class="add-element" data-toggle="tooltip" data-placement="top"
+                                 title="Add Selected Element">
+                                <span @click="addThreeColContainer">Add</span>
+                              </a>
+                              <!-- <br>
+                              <a class="remove-element" data-toggle="tooltip" data-placement="top"
+                                 title="Delete Selected Element">
+                                <span @click="removeButtonText">Delete</span>
+                              </a> -->
+                            </div>
+                          </div>
+                      </div>
+
+
+
+                    </div>
+
+                      
                       
 
                       <div class="ivr-back-next mt40">
@@ -615,7 +761,8 @@
           </div>
         </div>
       </div>
-    </div>
+  </div>
+    
 
     <!--    <div class="footer">-->
     <!--      <div class="container">-->
@@ -629,14 +776,14 @@
     <!--        </div>-->
     <!--      </div>-->
     <!--    </div>-->
-  </div>
+  
 </template>
 
 <script>
 
 import Navbar from '@/components/Navbar'
 import ColorPickerButton from "@/components/ColorPickerButton";
-import MarqueeText from 'vue-marquee-text-component'
+// import MarqueeText from 'vue-marquee-text-component'
 import axios from "axios"
 
 export default {
@@ -644,7 +791,7 @@ export default {
   components: {
     Navbar,
     ColorPickerButton,
-    MarqueeText
+    // MarqueeText
   },
   data() {
     return {
@@ -655,24 +802,19 @@ export default {
         {id: 4, value: 'Add Dropdown'},
         {id: 5, value: 'Add Image'},
         {id: 6, value: 'Add Ticker'},
-        {id: 7, value: 'Add Container'},
+        {id: 7, value: 'Add Two Column Container'},
+        {id: 8, value: 'Add Three Column Container'},
       ],
       actions: [
         {id: 1, value: 'Link'},
-        {id: 2, value: 'Call'},
+        // {id: 2, value: 'Call'},
         // {id: 3, value: 'Navigation'},
         // {id: 4, value: 'ContactSMS'},
         // {id: 5, value: 'ContactForm'},
       ],
-      Containeractions: [
-        {id: 1, value: 1},
-        {id: 2, value: 2},
-        {id: 3, value: 3},
-        {id: 4, value: 4},
-      ],
+      
       selected: null,
       selectedaction: null,
-      selectedcontaineraction: null,
       // texts: [],
       // buttontexts: [],
       // marqueetexts: [],
@@ -732,17 +874,48 @@ export default {
       // const element = document.getElementById('newtexts');
       // element.innerHTML = this.newText;
       // this.buttontexts.push({t: this.newText});
-      this.RawData.fields.push({button: {t: this.newText, color: this.templateModel.alertButtonColor, link: this.newLink}});
+      this.RawData.fields.push({button: {t: this.newText, color: this.templateModel.alertButtonColor, link: this.newLink, textcolor: this.templateModel.alertTextColor}});
       this.newText = '';
       this.newLink = '';
       // console.log(this.RawData.fields);
       // console.log(this.buttontexts)
       // this.saveTexts();
     },
-    addContainer() {
-      this.RawData.fields.push({container: {color: this.templateModel.alertContainerColor, link: this.newLink}});
+
+    addTwoColContainer() {
+      
+      this.RawData.fields.push(
+        {containerdata: [{
+          backgroundcolor: this.templateModel.alertContainerColor,
+          column: [{
+            buttoncolor: this.templateModel.alertButtonColor,
+            t: this.newText, 
+            link: this.newLink,
+            textcolor: this.templateModel.alertTextColor
+            }]
+          }]
+          });
       this.newLink = '';
+      this.newText = '';
     },
+
+    addThreeColContainer() {
+      
+      this.RawData.fields.push(
+        {threecontainerdata: [{
+          backgroundcolor: this.templateModel.alertContainerColor,
+          column: [{
+            buttoncolor: this.templateModel.alertButtonColor,
+            t: this.newText, 
+            link: this.newLink,
+            textcolor: this.templateModel.alertTextColor
+            }]
+          }]
+          });
+      this.newLink = '';
+      this.newText = '';
+    },
+
     addMarqueetexts() {
       if (!this.newText) {
         return;
@@ -831,8 +1004,15 @@ export default {
           // const imageUrl = event.target.result;
           // vm.images.push(imageUrl);
           vm.sliderData = event.target.result;
-          vm.RawData.fields.push({slider: vm.sliderData});
-          console.log(vm.sliderData)
+          // let slider = vm.RawData.fields.push({sliderdata: [{}]});
+          // slider.push({image: vm.sliderData})
+          vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
+
+        //   vm.RawData.fields.push(
+        // {sliderdata: [{
+        //   image: vm.sliderData
+        //   }]
+        //   });
         }
         reader.readAsDataURL(files[index]);
       }
@@ -1053,6 +1233,20 @@ div.color-picker-outer {
   background-color: #E7E7E7;
 }
 
+.ivr-button {
+    display: inline-block;
+    min-height: 40px;
+    height: 1.42em;
+    color: #444;
+    border: 1px solid #CCC;
+    background: #DDD;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor: pointer;
+    /* padding: 5px 2px; */
+    text-align: center;
+    margin: 1px auto;
+}
+
 .ivr-container {
     display: inline-block;
     margin: 0 auto;
@@ -1062,6 +1256,7 @@ div.color-picker-outer {
 }
 
 .ivr-text {
+  display: inline-block;
   vertical-align: middle;
   /* margin-top: -0.6em; */
   margin-left: 10px;

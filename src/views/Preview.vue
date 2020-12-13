@@ -15,47 +15,24 @@
     </div>
     <div class="main">
       <h2>Here is Preview Page</h2>
-                        <div class="edit-selected-element block ImageElement">
-                          <div class="edit-selected-element-title block-title border-radius-style no-frame">
-                            <span class="ivr-element-title">Slider Image Options</span>
-                          </div>
-                          <div class="edit-selected-element-body block-body">
-                            <div class="edit-selected-element-body-group">
-                              <span class="group-title">
-                                Replace Image
-                                <span
-                                    style="font-size: 15px;color: #6e7b88;float: right;margin-right: 15px;">
-<!--                                  (Recommended size: 600x400px)-->
-                                </span>
-                              </span>
-                              <div class="edit-Replace-Image p15">
-                                <div class="file-upload">
-                                  <label>Browse
-                                    <input type="file" @change="previewSlider" accept="image/*" multiple>
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-    </div>
+      <div >
+        <div class="file-upload">
+          <label>Browse
+             <input type="file" @change="previewSlider" accept="image/*" multiple>
+           </label>
+         </div>
+      </div>
 
-    <div v-for="(list, index) in RawData.fields" :key="index">
-        <div v-if="list.slider">
-          <transition-group name='fade' tag='div'>
-                                    <div
-                                     data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                    class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;"
-                                    >
-                                      <img data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                      class="ivr-el ivr-image elEditing"
-                                          :src="list.slider" data-type="ImageElement"
-                                          />
-                                  </div>
-            </transition-group>
-
-        </div>
+      <div v-for="(list, index) in RawData.fields" :key="index">
+        <div v-for="slider of list.sliderdata" :key="slider">
+          <div  data-toggle="tooltip" data-placement="top" title="Select Slider"
+            class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:50%;direction:rtl;">
+             <img data-toggle="tooltip" data-placement="top" title="Select Slider"
+                class="ivr-el ivr-image elEditing" :src="slider.image" data-type="ImageElement">
+            </div>
+           </div>
+        </div>                            
     </div>
-  </div>
   </div>
 </template>
 
@@ -70,23 +47,27 @@ export default {
   data(){
     return{
       sliderData: [],
-      currentNumber: 0,
-      timer: null,
       RawData: {
-        
         fields: [],
       },
     }
   },
-  mounted: function () {
-        this.startRotation();
-    },
   methods:{
     previewSlider: function (e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length)
         return;
       this.createImage(files);
+      // const input = event.target;
+      // if (input.files && input.files[0]) {
+      //   const reader = new FileReader();
+      //   reader.onload = (e) => {
+      //     this.sliderData = e.target.result;
+      //     console.log(this.sliderData);
+      //     this.RawData.fields.push({slider: this.sliderData});
+      //   }
+      //   reader.readAsDataURL(input.files[0]);
+      // }
     },
     createImage(files) {
       var vm = this;
@@ -96,27 +77,19 @@ export default {
           // const imageUrl = event.target.result;
           // vm.images.push(imageUrl);
           vm.sliderData = event.target.result;
-          vm.RawData.fields.push({slider: vm.sliderData});
-          console.log(vm.sliderData)
+          // let slider = vm.RawData.fields.push({sliderdata: [{}]});
+          // slider.push({image: vm.sliderData})
+          vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
+
+        //   vm.RawData.fields.push(
+        // {sliderdata: [{
+        //   image: vm.sliderData
+        //   }]
+        //   });
         }
         reader.readAsDataURL(files[index]);
       }
     },
-    startRotation: function() {
-            this.timer = setInterval(this.next, 3000);
-        },
-
-        stopRotation: function() {
-            clearTimeout(this.timer);
-            this.timer = null;
-        },
-
-        next: function() {
-            this.currentNumber += 1
-        },
-        prev: function() {
-            this.currentNumber -= 1
-        }
   }
 }
 </script>

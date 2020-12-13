@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       colors: {
-        hex: "#4A4A4A"
+        hex: "#FFFFFF"
       },
       colorValue: this.initColor,
       displayPicker: false
