@@ -447,8 +447,8 @@
                               <div class="edit-Replace-Image p15">
                                 <div class="file-upload">
                                   <label>Browse
-                                    <input ref="fileInput" type="file" @input="previewImage">
-                                    <!-- <input type="file" @change="previewImage" accept="image/*"> -->
+                                    <!-- <input ref="fileInput" type="file" @input="previewImage"> -->
+                                    <input type="file" @change="previewImage" accept="image/*">
 
                                     <!--                                    <input type="file" name="uploadfile">-->
                                     <!--                                    <input type="hidden" value="" name="uploadfile" data-attr="src" class="srcEditor">-->
@@ -844,6 +844,7 @@ export default {
         BackgroundColor: '',
         fields: [],
       },
+      GetRaw: [],
       
     }
   },
@@ -943,12 +944,25 @@ export default {
     },
     saveRaw() {
       const data = this.RawData;
-      console.log(data);
+      const self = this
       const URL = 'http://127.0.0.1:8000/api/backends';
       axios.post(URL, JSON.stringify(data)).then(response => {
-        // const status = response.data.success;
-        console.log(response)
-        console.log('Submit Success')
+        const status = response.data.success;
+        self.GetRaw = response.data.data.raw_json;
+        console.log(self.GetRaw)
+        self.$router.push({name: 'Preview', params: {data : self.GetRaw}})
+        // if (status == true) {
+        //   self.$swal.fire({
+        //     title: 'Submitted!',
+        //     text: 'Your Template has been created!',
+        //     icon: 'success',
+        //     timer: 5000
+        //   })
+        //   .then(function () {
+        //         self.$router.push({name: 'Preview', params: {data : self.GetRaw}})
+        //       })
+        // }
+        console.log(status);
       }).catch(error => {
         console.log(error.response)
         console.log('Submit Fail')
@@ -957,20 +971,34 @@ export default {
     selectImage () {
           this.$refs.fileInput.click()
       },
-    previewImage() {
-      const input = this.$refs.fileInput;
-      const file = input.files;
-      if (file && file[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imageData = e.target.result;
-          this.RawData.fields.push({image: this.imageData});
-        }
-        reader.readAsDataURL(file[0]);
-        this.$emit('input', file[0]);
-      }
-    },
-    removepreviewImage(x){
+    previewImage(e) {
+      const image = e.target.files[0];
+      // console.log(image)
+      const data = new FormData();
+      data.append('image', image);
+      const URL = 'http://127.0.0.1:8000/api/image';
+      axios.post(URL, data,{headers: {"Content-Type": "multipart/form-data"}}).then(response => {
+        this.imageData = response.data.path
+      }).catch(error => {
+        console.log(error.message)
+        console.log('Submit Fail')
+      });
+
+      this.RawData.fields.push({image: this.imageData});
+      // console.log(this.imageData)
+
+      // const input = this.$refs.fileInput;
+      // const file = input.files;
+      // if (file && file[0]) {
+      //   const reader = new FileReader();
+      //   reader.onload = (e) => {
+      //     this.imageData = e.target.result;
+      //     this.RawData.fields.push({image: this.imageData});
+      //   }
+      //   reader.readAsDataURL(file[0]);
+      //   this.$emit('input', file[0]);
+      },
+      removepreviewImage(x){
       console.log(this.imageData);
       this.imageData.splice(x, 1);
         // this.images.splice(key, 1);
@@ -1018,7 +1046,6 @@ export default {
       }
     },
   },
-
   mounted() {
 
   },

@@ -15,7 +15,9 @@
     </div>
     <div class="main">
       <h2>Here is Preview Page</h2>
-      <div >
+      <child-preview :database="database"></child-preview>
+
+      <!-- <div>
         <div class="file-upload">
           <label>Browse
              <input type="file" @change="previewSlider" accept="image/*" multiple>
@@ -29,67 +31,36 @@
             class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:50%;direction:rtl;">
              <img data-toggle="tooltip" data-placement="top" title="Select Slider"
                 class="ivr-el ivr-image elEditing" :src="slider.image" data-type="ImageElement">
-            </div>
-           </div>
-        </div>                            
+          </div>
+        </div>
+      </div>                             -->
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
+import ChildPreview from './ChildPreview.vue'
 
 export default {
   name: "Preview",
   components: {
     Navbar,
+    ChildPreview,
   },
   data(){
     return{
-      sliderData: [],
-      RawData: {
-        fields: [],
-      },
+      database: []
     }
   },
+  created() {
+    this.database = this.$route.params.data
+  },
+  mounted() {
+    // console.log(this.database.BackgroundColor)
+  },
   methods:{
-    previewSlider: function (e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files);
-      // const input = event.target;
-      // if (input.files && input.files[0]) {
-      //   const reader = new FileReader();
-      //   reader.onload = (e) => {
-      //     this.sliderData = e.target.result;
-      //     console.log(this.sliderData);
-      //     this.RawData.fields.push({slider: this.sliderData});
-      //   }
-      //   reader.readAsDataURL(input.files[0]);
-      // }
-    },
-    createImage(files) {
-      var vm = this;
-      for (var index = 0; index < files.length; index++) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-          // const imageUrl = event.target.result;
-          // vm.images.push(imageUrl);
-          vm.sliderData = event.target.result;
-          // let slider = vm.RawData.fields.push({sliderdata: [{}]});
-          // slider.push({image: vm.sliderData})
-          vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
 
-        //   vm.RawData.fields.push(
-        // {sliderdata: [{
-        //   image: vm.sliderData
-        //   }]
-        //   });
-        }
-        reader.readAsDataURL(files[index]);
-      }
-    },
   }
 }
 </script>
