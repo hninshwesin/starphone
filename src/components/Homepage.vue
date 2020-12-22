@@ -22,11 +22,12 @@
               <div id="row">
                 <div class="col-md-4" id="left">
                   <div class="reset_button">
-                    <a href="/">Reset All</a>
                     <!-- <a class="reset-all" data-url="/" href="#">Reset All</a> -->
                   </div>
                   <div class="select_page_button" style="font-size: 20px">
-                    <a class="select-page" href="#">Select Page</a>
+                    <!-- <a class="select-page" href="#">Select Page</a> -->
+                    <a class="select-page" href="/">Reset All</a>
+
                   </div>
                   <div class="phone">
                     <div class="phone-top"></div>
@@ -209,13 +210,13 @@
                               <div class="edit-selected-element-body-group">
                                 <span class="group-title">Font Options</span>
                                 <div class="edit-Font-Options p15">
-                                  <div class="font-size">
+                                  <!-- <div class="font-size">
                                     <label class="odLabelInline">Font Size</label>
                                     <input style="width:40px" type="number" min="12" value="14" data-attr="fontSize"
                                            class="fontSizeEditor">
                                     &nbsp;
                                     <label class="odLabelInline">px</label>
-                                  </div>
+                                  </div> -->
                                   <div class="color">
 
                                     <div class="edit-Color p15">
@@ -240,9 +241,10 @@
                                 <form class="actions-body-form"></form>
                               </div>
                             </div> -->
-                            <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
+                          </div>
+                          <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                               <a class="undo" style="margin-top: 9px;float:left">
-                                <span @click="removeText">Undo</span>
+                                <span @click="removeRaw(list)">Undo</span>
                               </a>
                               <div class="threeButtons" style="float:right">
                                 <a class="add-element" data-toggle="tooltip" data-placement="top"
@@ -255,16 +257,7 @@
                                 <!--                                </a>-->
                               </div>
                             </div>
-                            <br>
-                          </div>
                         </div>
-                        <!--                        <div class="ivr-back-next mt40">-->
-                        <!--                          <a href="/" class="btn ivr-back-link">&lt;&lt; Back</a>-->
-                        <!--                          <a href="/"-->
-                        <!--                             class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">-->
-                        <!--                            Save And Continue-->
-                        <!--                          </a>-->
-                        <!--                        </div>-->
                       </div>
                       <!--slider-->
                       <div v-if="selected === 2">
@@ -307,18 +300,19 @@
                             <!--                                </form>-->
                             <!--                              </div>-->
                             <!--                            </div>-->
-                            <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
+                            
+                          </div>
+                          <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                               <a class="undo" href="#" style="margin-top: 9px;float:left">
-                                <span>Undo</span>
+                                <span @click="removeRaw(list)">Undo</span>
                               </a>
-                              <div class="threeButtons" style="float:right">
+                              <!-- <div class="threeButtons" style="float:right">
                                 <a class="remove-element" data-toggle="tooltip" data-placement="top"
                                    title="Delete Selected Element" href="#">
                                   <span>Delete</span>
                                 </a>
-                              </div>
+                              </div> -->
                             </div>
-                          </div>
                         </div>
                       </div>
 
@@ -410,7 +404,7 @@
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                             <a class="undo" style="margin-top: 9px;float:left">
-                              <span @click="removeButtonText">Undo</span><br>
+                              <span @click="removeRaw(list)">Undo</span><br>
                             </a>
                             <div class="threeButtons" style="float:right">
                               <a class="add-element" data-toggle="tooltip" data-placement="top"
@@ -447,8 +441,8 @@
                               <div class="edit-Replace-Image p15">
                                 <div class="file-upload">
                                   <label>Browse
-                                    <!-- <input ref="fileInput" type="file" @input="previewImage"> -->
-                                    <input type="file" @change="previewImage" accept="image/*">
+                                    <input ref="fileInput" type="file" @input="previewImage">
+                                    <!-- <input type="file" @change="previewImage" accept="image/*"> -->
 
                                     <!--                                    <input type="file" name="uploadfile">-->
                                     <!--                                    <input type="hidden" value="" name="uploadfile" data-attr="src" class="srcEditor">-->
@@ -457,18 +451,19 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
+                          </div>
+                          <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                               <a class="undo" style="margin-top: 9px;float:left">
-                                <span @click=removepreviewImage>Undo</span>
+                                <span @click="removeRaw(list)">Undo</span>
                               </a>
-                              <div class="threeButtons" style="float:right">
+                              <!-- <div class="threeButtons" style="float:right">
                                 <a class="remove-element" data-toggle="tooltip" data-placement="top"
                                    title="Delete Selected Element" href="#">
                                   <span>Delete</span>
                                 </a>
-                              </div>
+                              </div> -->
                             </div>
-                          </div>
+
                         </div>
                       </div>
                       <!--ticker-->
@@ -515,7 +510,7 @@
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                             <a class="undo" style="margin-top: 9px;float:left">
-                              <span @click="removeMarqueeText">Undo</span>
+                              <span @click="removeRaw(list)">Undo</span>
                             </a>
                             <div class="threeButtons" style="float:right">
                               <a class="add-element" data-toggle="tooltip" data-placement="top"
@@ -636,7 +631,7 @@
                         </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                             <a class="undo" style="margin-top: 9px;float:left">
-                              <span >Undo</span><br>
+                              <span @click="removeRaw(list)">Undo</span><br>
                             </a>
                             <div class="threeButtons" style="float:right">
                               <a class="add-element" data-toggle="tooltip" data-placement="top"
@@ -716,7 +711,7 @@
                         </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
                             <a class="undo" style="margin-top: 9px;float:left">
-                              <span >Undo</span><br>
+                              <span @click="removeRaw(list)">Undo</span><br>
                             </a>
                             <div class="threeButtons" style="float:right">
                               <a class="add-element" data-toggle="tooltip" data-placement="top"
@@ -740,7 +735,7 @@
                       
 
                       <div class="ivr-back-next mt40">
-                        <a href="/" class="btn ivr-back-link">&lt;&lt; Back</a>
+                        <!-- <a href="/" class="btn ivr-back-link">&lt;&lt; Back</a> -->
                         <a
                            class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
                            <span @click="saveRaw">Save And Continue</span>
@@ -930,6 +925,10 @@ export default {
       // console.log(this.marqueetexts)
       // this.saveTexts();
     },
+    removeRaw(list){
+      let index = this.RawData.fields.indexOf(list)
+      this.RawData.fields.splice(index,1);
+    },
     removeText(x) {
       this.texts.splice(x, 1);
       // this.saveTexts();
@@ -971,33 +970,38 @@ export default {
     selectImage () {
           this.$refs.fileInput.click()
       },
-    previewImage(e) {
-      const image = e.target.files[0];
-      // console.log(image)
-      const data = new FormData();
-      data.append('image', image);
-      const URL = 'http://127.0.0.1:8000/api/image';
-      axios.post(URL, data,{headers: {"Content-Type": "multipart/form-data"}}).then(response => {
-        this.imageData = response.data.path
-      }).catch(error => {
-        console.log(error.message)
-        console.log('Submit Fail')
-      });
+    previewImage() {
 
-      this.RawData.fields.push({image: this.imageData});
-      // console.log(this.imageData)
+      const input = this.$refs.fileInput;
+      const file = input.files;
+      if (file && file[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imageData = e.target.result;
+          this.RawData.fields.push({image: this.imageData});
+        }
+        reader.readAsDataURL(file[0]);
+        this.$emit('input', file[0]);
+      }
 
-      // const input = this.$refs.fileInput;
-      // const file = input.files;
-      // if (file && file[0]) {
-      //   const reader = new FileReader();
-      //   reader.onload = (e) => {
-      //     this.imageData = e.target.result;
-      //     this.RawData.fields.push({image: this.imageData});
-      //   }
-      //   reader.readAsDataURL(file[0]);
-      //   this.$emit('input', file[0]);
-      },
+      }
+      ,
+      // previewImage(e) {
+      // const image = e.target.files[0];
+      // // console.log(image)
+      // const data = new FormData();
+      // data.append('image', image);
+      // const URL = 'http://127.0.0.1:8000/api/image';
+      // axios.post(URL, data,{headers: {"Content-Type": "multipart/form-data"}}).then(response => {
+      //   this.imageData = response.data.path
+      // }).catch(error => {
+      //   console.log(error.message)
+      //   console.log('Submit Fail')
+      // });
+
+      // this.RawData.fields.push({image: this.imageData});
+      // },
+
       removepreviewImage(x){
       console.log(this.imageData);
       this.imageData.splice(x, 1);
@@ -1269,7 +1273,7 @@ div.color-picker-outer {
     background: #DDD;
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
     cursor: pointer;
-    /* padding: 5px 2px; */
+    padding: 5px 2px;
     text-align: center;
     margin: 1px auto;
 }
@@ -1582,7 +1586,7 @@ input {
 }
 
 .block-bottom {
-  height: 60px;
+  height: 50px;
   padding: 10px;
   font-family: serif;
   font-size: 18px;
@@ -1727,6 +1731,9 @@ input[type=checkbox] {
   text-decoration: none;
   color: #000;
 }
+.mt40 {
+  margin-top: 30px;
+}
 
 .ivr-back-next .ivr-back-link {
   float: left;
@@ -1742,6 +1749,14 @@ input[type=checkbox] {
   font-weight: 400;
   font-family: "OpenSans";
   color: #29b1e7;
+}
+
+.form-btn-lilac-normal {
+    background: #29b1e7 none repeat scroll 0 0;
+    border: 1px solid #29b1e7;
+    border-radius: 3px;
+    color: #fff!important;
+    cursor: pointer;
 }
 
 </style>

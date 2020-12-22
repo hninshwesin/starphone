@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="main">
-      <h2>Here is Preview Page</h2>
+      <!-- <h2>Here is Preview Page</h2> -->
       <child-preview :database="database"></child-preview>
 
       <!-- <div>
