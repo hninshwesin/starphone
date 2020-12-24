@@ -50,14 +50,18 @@ export default {
   },
   data(){
     return{
-      database: []
+      database: [],
+      // data: ''
     }
   },
   created() {
     this.database = this.$route.params.data
+    // this.data = this.$route.params.slide
+
   },
   mounted() {
     // console.log(this.database.BackgroundColor)
+
   },
   methods:{
 

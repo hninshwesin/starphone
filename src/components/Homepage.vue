@@ -121,13 +121,15 @@
                                 </div>
 
                                 <div v-if="list.sliderdata">
-                                  <div v-for="slider of list.sliderdata" :key="slider">
-                                    <div  data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                    class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;">
+                                  <!-- <div v-for="slider of list.sliderdata" :key="slider"> -->
+                                    <div>
+                                    <!-- <div  data-toggle="tooltip" data-placement="top" title="Select Slider"  v-for="slider in list.sliderdata.image" :key="slider"
+                                    class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;"> -->
+                                  
                                       <img data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                          class="ivr-el ivr-image elEditing" :src="slider.image" data-type="ImageElement">
+                                          class="ivr-el ivr-image elEditing" :src="list.sliderdata.image" data-type="ImageElement">
                                     </div>
-                                  </div>
+                                  
                                 </div>
                                
                                
@@ -277,7 +279,8 @@
                               <div class="edit-Replace-Image p15">
                                 <div class="file-upload">
                                   <label>Browse
-                                    <input type="file" @change="previewSlider" accept="image/*" multiple>
+                                    <input type="file" @change="previewSlider" accept="image/*">
+                                    <!-- <input type="file" @change="previewSlider" accept="image/*" multiple> -->
                                   </label>
                                 </div>
                               </div>
@@ -1038,7 +1041,9 @@ export default {
           vm.sliderData = event.target.result;
           // let slider = vm.RawData.fields.push({sliderdata: [{}]});
           // slider.push({image: vm.sliderData})
-          vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
+          // vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
+          vm.RawData.fields.push({sliderdata: {image: vm.sliderData}});
+
 
         //   vm.RawData.fields.push(
         // {sliderdata: [{

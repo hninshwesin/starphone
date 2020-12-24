@@ -13,55 +13,19 @@
         </div>
       </div>
     </div>
+    <h2>Here is contact page</h2>
     <div class="main">
       <div class="container">
-        <div id="container">
-          <div class="row">
-            <form>
-              <label>Name: </label>
-              <input type="text" v-model="name"><br/>
-              <label>Last Name: </label>
-              <input type="text" v-model="last"><br/>
-              <label>Index: </label>
-              <input type="text" v-model="index"><br/>
-              <label>Grade: </label>
-              <select v-model="grade">
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
-              <br><br>
-              <button type="button" v-on:click="add()">Add Data</button>
-              <br/><br>
-              <button type="button" v-on:click="saveFile()">saveFile</button>
-            </form>
-            <br> <br>
-            <table border="1">
-              <thead>
-              <td>Name</td>
-              <td>Last Name</td>
-              <td>Index</td>
-              <td>Grade</td>
-              </thead>
-              <tbody>
-              <tr v-for="x in arr" :key="x">
-                <td>{{ x.first }}</td>
-                <td>{{ x.lastn }}</td>
-                <td>{{ x.index }}</td>
-                <td>{{ x.grade }}</td>
-              </tr>
-              </tbody>
-            </table>
+          <!-- <vue-image-slider :images="imageArray" :intervalVal=3000 :height=700 :width=1200 /> -->
 
-            {{ arr }}
-          </div>
-        </div>
+      <vue-flux :options="vfOptions" :images="vfImages" :transitions="vfTransitions" ref="slider">
+        <!-- <template >
+            
+        </template> -->
+      </vue-flux>
       </div>
     </div>
-    <h2>Here is contact page</h2>
+    
 
     <!-- <div class="footer">
                 <h2>Footer</h2>
@@ -72,48 +36,32 @@
 <script>
 
 import Navbar from '@/components/Navbar'
+import {VueFlux} from 'vue-flux';
 
 export default {
   name: 'Contact',
   components: {
-    Navbar
+    Navbar,
+    VueFlux,
   },
   data() {
     return {
-      name: '',
-      last: '',
-      index: 0,
-      grade: 0,
-      arr: []
+      vfOptions: {
+         autoplay: true,
+         delay: 1000
+      },
+      vfImages: [ 
+        'https://ragnarlotus.github.io/vue-flux-docs/img/slides/59.jpg', 
+        'https://images.pexels.com/photos/5478104/pexels-photo-5478104.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 
+        'https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80' ],
+      vfTransitions: [ 'slide' ],
     }
   },
-  methods: {
-    add: function () {
-      this.arr.push({first: this.name, lastn: this.last, index: this.index, grade: this.grade});
-      console.log(this.arr);
+  mounted() {
+
     },
-    saveFile: function () {
-      const data = JSON.stringify(this.arr)
-      const fs = require('fs');
-      fs.writeFileSync("data.json", data);
-      // try { fs.writeFileSync('myfile.txt', data, 'utf-8'); }
-      // catch(e) { alert('Failed to save the file !'); }
 
-      // window.localStorage.setItem('arr', data);
-      // console.log(JSON.parse(window.localStorage.getItem('arr')))
-
-      // document.getElementById("1").innerHTML = data;
-      // const blob = new Blob([data], {type: 'text/plain'})
-      // const e = document.createEvent('MouseEvents'),
-      // a = document.createElement('a');
-      // a.download = "test.json";
-      // a.href = window.URL.createObjectURL(blob);
-      // a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-      // e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-      // a.dispatchEvent(e);
-    }
-
-  }
+  
 }
 </script>
 

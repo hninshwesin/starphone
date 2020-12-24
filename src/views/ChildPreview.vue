@@ -86,19 +86,29 @@
                                 <div v-if="list.image">
                                   <div data-toggle="tooltip" data-placement="top"
                                     class="ivr-el ivr-image" data-type="ImageElement">
-                                  <img data-toggle="tooltip" data-placement="top"
+                                    <img data-toggle="tooltip" data-placement="top"
                                       class="ivr-el ivr-image elEditing" :src="list.image" data-type="ImageElement">
-                                </div>
+                                  </div>
                                 </div>
 
                                 <div v-if="list.sliderdata">
-                                  <div v-for="slider of list.sliderdata" :key="slider">
+                                  
                                     <div  data-toggle="tooltip" data-placement="top"
-                                    class="ivr-el ivr-slider" data-type="SliderElement">
-                                      <img data-toggle="tooltip" data-placement="top"  style="direction:rtl;"
-                                          class="ivr-el ivr-image elEditing" :src="slider.image" data-type="ImageElement">
+                                    class="ivr-el ivr-image" data-type="SliderElement">
+                                     <!-- <carousel :src="slider.image"></carousel> -->
+                                     <!-- <vue-flux :options="vfOptions" :images="list.sliderdata.image" :transitions="vfTransitions" ref="slider">
+                                      </vue-flux> -->
+                                     <img data-toggle="tooltip" data-placement="top"  style="direction:rtl;"
+                                          class="ivr-el ivr-image elEditing" :src="list.sliderdata.image" data-type="ImageElement">
+
+                                     <!-- <carousel>
+                                      <slide>
+                                        
+                                      </slide>
+                                    </carousel> -->
+                                      
                                     </div>
-                                  </div>
+                                  
                                 </div>
                                
                                
@@ -112,21 +122,43 @@
 </template>
 
 <script>
+// import {VueFlux} from 'vue-flux';
+
 export default {
   name: "ChildPreview",
+  components: {
+    // VueFlux,
+  },
   props: [
     'database',
   ],
+  // props: {
+  //   database: Object,
+  //   images: [String, Object]
+  // },
   data() {
     return {
-      
+      // vfOptions: {
+      //    autoplay: true,
+      //    delay: 1000
+      // },
+      // vfImages: [ 
+      //   'https://ragnarlotus.github.io/vue-flux-docs/img/slides/59.jpg', 
+      //   'https://images.pexels.com/photos/5478104/pexels-photo-5478104.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 
+      //   'https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80' 
+      //    ],
+      // vfTransitions: [ 'slide' ],
     }
+    
   },
   mounted() {
-    
+    // this.slider = this.database.fields
+    //   console.log(this.slider)
   },
   methods: {
   },
+  computed: {
+    }
   // beforeMount() {
   //     this.child_model = this.model
   // }
