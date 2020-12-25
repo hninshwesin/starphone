@@ -444,13 +444,14 @@
                               <div class="edit-Replace-Image p15">
                                 <div class="file-upload">
                                   <label>Browse
-                                    <input ref="fileInput" type="file" @input="previewImage">
+                                    <input type="file" ref="file" id="file" @change="previewImage">
                                     <!-- <input type="file" @change="previewImage" accept="image/*"> -->
 
                                     <!--                                    <input type="file" name="uploadfile">-->
                                     <!--                                    <input type="hidden" value="" name="uploadfile" data-attr="src" class="srcEditor">-->
                                     <!--                                    <span>Browse</span>-->
                                   </label>
+                                  <!-- <button v-on:click="previewImage">Upload</button> -->
                                 </div>
                               </div>
                             </div>
@@ -843,7 +844,7 @@ export default {
         fields: [],
       },
       GetRaw: [],
-      
+      image: ''
     }
   },
   methods: {
@@ -971,39 +972,49 @@ export default {
       });
     },
     selectImage () {
-          this.$refs.fileInput.click()
+          this.$refs.file.click()
       },
-    previewImage() {
+    // previewImage() {
 
-      const input = this.$refs.fileInput;
-      const file = input.files;
-      if (file && file[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imageData = e.target.result;
-          this.RawData.fields.push({image: this.imageData});
-        }
-        reader.readAsDataURL(file[0]);
-        this.$emit('input', file[0]);
-      }
+    //   const input = this.$refs.fileInput;
+    //   const file = input.files;
+    //   if (file && file[0]) {
+    //       const reader = new FileReader();
+    //       reader.onload = (e) => {
+    //         this.imageData = e.target.result;
+    //         this.RawData.fields.push({image: this.imageData});
+    //       }
+    //       reader.readAsDataURL(file[0]);
+    //       this.$emit('input', file[0]);
+    //     }
 
+    // },
+      // onChangeFileUpload(){
+      //   this.image = this.$refs.file.files[0];
+      // },
+      previewImage() {
+      const image = this.$refs.file.files[0];
+      console.log(image)
+      const formData = new FormData();
+      formData.append('image', image);
+      const URL = 'http://127.0.0.1:8000/api/image';
+      axios.post(URL, formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+          }
+      }).then(response => {
+        this.imageData = response.data
+        console.log(this.imageData)
+        // this.imageData = response.data.path
+      }).catch(error => {
+        console.log(error.message)
+        console.log('Submit Fail')
       }
-      ,
-      // previewImage(e) {
-      // const image = e.target.files[0];
-      // // console.log(image)
-      // const data = new FormData();
-      // data.append('image', image);
-      // const URL = 'http://127.0.0.1:8000/api/image';
-      // axios.post(URL, data,{headers: {"Content-Type": "multipart/form-data"}}).then(response => {
-      //   this.imageData = response.data.path
-      // }).catch(error => {
-      //   console.log(error.message)
-      //   console.log('Submit Fail')
-      // });
+      );
 
       // this.RawData.fields.push({image: this.imageData});
-      // },
+      },
 
       removepreviewImage(x){
       console.log(this.imageData);
