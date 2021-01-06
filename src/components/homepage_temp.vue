@@ -798,16 +798,57 @@ export default {
             this.$refs.im.value = '';
         }
     },
-    previewSlider: function (event) {
-      const input = event.target;
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.sliderData = e.target.result;
-        }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
+    // previewSlider: function (event) {
+    //   const input = event.target;
+    //   if (input.files && input.files[0]) {
+    //     const reader = new FileReader();
+    //     reader.onload = (e) => {
+    //       this.sliderData = e.target.result;
+    //     }
+    //     reader.readAsDataURL(input.files[0]);
+    //   }
+    // },
+    
+    // previewSlider: function (e) {
+    //   var files = e.target.files || e.dataTransfer.files;
+    //   if (!files.length)
+    //     return;
+    //   this.createImage(files);
+    //   // const input = event.target;
+    //   // if (input.files && input.files[0]) {
+    //   //   const reader = new FileReader();
+    //   //   reader.onload = (e) => {
+    //   //     this.sliderData = e.target.result;
+    //   //     console.log(this.sliderData);
+    //   //     this.RawData.fields.push({slider: this.sliderData});
+    //   //   }
+    //   //   reader.readAsDataURL(input.files[0]);
+    //   // }
+    // },
+
+    // createImage(files) {
+    //   var vm = this;
+    //   for (var index = 0; index < files.length; index++) {
+    //     var reader = new FileReader();
+    //     reader.onload = function(event) {
+    //       // const imageUrl = event.target.result;
+    //       // vm.images.push(imageUrl);
+    //       vm.sliderData = event.target.result;
+    //       // let slider = vm.RawData.fields.push({sliderdata: [{}]});
+    //       // slider.push({image: vm.sliderData})
+    //       // vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
+    //       vm.RawData.fields.push({sliderdata: {image: vm.sliderData}});
+    //
+    //
+    //     //   vm.RawData.fields.push(
+    //     // {sliderdata: [{
+    //     //   image: vm.sliderData
+    //     //   }]
+    //     //   });
+    //     }
+    //     reader.readAsDataURL(files[index]);
+    //   }
+    // },
   },
 
   mounted() {

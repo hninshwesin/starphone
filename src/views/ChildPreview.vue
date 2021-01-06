@@ -29,7 +29,7 @@
                                   <div class="ivr-el ivr-button elEditing"
                                      data-type="ButtonElement" style="height: 50px;border-radius:6px"
                                       :style="{'background-color' : list.button.color}">
-                                    <a :href="list.button.link">
+                                    <a :href="list.button.link" target = "_blank">
                                     <span class="ivr-el ivr-text elEditing" data-type="TextElement" style="font-size: 25px" :style="{'color' : list.button.textcolor}">
                                     {{list.button.t}}
                                   </span>
@@ -47,7 +47,7 @@
                                           <div class="ivr-el ivr-button"
                                           data-type="ButtonElement" style="height: 50px;border-radius:6px"
                                           :style="{'background-color' : col.buttoncolor}">
-                                            <a :href="col.link">
+                                            <a :href="col.link" target = "_blank">
                                               <span class="ivr-el ivr-text elEditing" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
                                     
                                               {{col.t}}
@@ -70,7 +70,7 @@
                                           <div class="ivr-el ivr-button"
                                           data-type="ButtonElement" style="height: 50px;border-radius:6px"
                                           :style="{'background-color' : col.buttoncolor}">
-                                            <a :href="col.link">
+                                            <a :href="col.link" target = "_blank">
                                              <span class="ivr-el ivr-text elEditing" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
                                                 {{col.t}}
                                               </span>
@@ -81,7 +81,6 @@
                                     </div>
                                     </div>
                                 </div>
-                                  
 
                                 <div v-if="list.image">
                                   <div data-toggle="tooltip" data-placement="top"
@@ -92,22 +91,19 @@
                                 </div>
 
                                 <div v-if="list.sliderdata">
-                                  
-                                    <div  data-toggle="tooltip" data-placement="top"
+                                  <vue-flux :options="vfOptions" :images="list.sliderdata" :transitions="vfTransitions" ref="slider">
+                                      </vue-flux>
+                                    <!-- <div  data-toggle="tooltip" data-placement="top"
                                     class="ivr-el ivr-image" data-type="SliderElement">
-                                     <!-- <carousel :src="slider.image"></carousel> -->
-                                     <!-- <vue-flux :options="vfOptions" :images="list.sliderdata.image" :transitions="vfTransitions" ref="slider">
-                                      </vue-flux> -->
                                      <img data-toggle="tooltip" data-placement="top"  style="direction:rtl;"
                                           class="ivr-el ivr-image elEditing" :src="list.sliderdata.image" data-type="ImageElement">
-
+                                    </div> -->
+                                    <!-- <carousel :src="slider.image"></carousel> -->
                                      <!-- <carousel>
                                       <slide>
                                         
                                       </slide>
                                     </carousel> -->
-                                      
-                                    </div>
                                   
                                 </div>
                                
@@ -122,12 +118,12 @@
 </template>
 
 <script>
-// import {VueFlux} from 'vue-flux';
+import {VueFlux} from 'vue-flux';
 
 export default {
   name: "ChildPreview",
   components: {
-    // VueFlux,
+    VueFlux,
   },
   props: [
     'database',
@@ -138,16 +134,16 @@ export default {
   // },
   data() {
     return {
-      // vfOptions: {
-      //    autoplay: true,
-      //    delay: 1000
-      // },
+      vfOptions: {
+         autoplay: true,
+         delay: 1000
+      },
       // vfImages: [ 
       //   'https://ragnarlotus.github.io/vue-flux-docs/img/slides/59.jpg', 
       //   'https://images.pexels.com/photos/5478104/pexels-photo-5478104.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 
       //   'https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80' 
       //    ],
-      // vfTransitions: [ 'slide' ],
+      vfTransitions: [ 'slide' ],
     }
     
   },

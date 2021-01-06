@@ -58,7 +58,7 @@
                                   <div class="ivr-el ivr-button elEditing"
                                       title="Select Button" data-type="ButtonElement" style="height: 50px"
                                       :style="{'background-color' : list.button.color}">
-                                    <a :href="list.button.link">
+                                    <a :href="list.button.link" target = "_blank">
                                     <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : list.button.textcolor}">
                                     {{list.button.t}}
                                   </span>
@@ -76,7 +76,7 @@
                                           <div class="ivr-el ivr-button"
                                           title="Select Button" data-type="ButtonElement" style="height: 50px"
                                           :style="{'background-color' : col.buttoncolor}">
-                                            <a :href="col.link">
+                                            <a :href="col.link" target = "_blank">
                                               <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
                                     
                                               {{col.t}}
@@ -99,7 +99,7 @@
                                           <div class="ivr-el ivr-button"
                                           title="Select Button" data-type="ButtonElement" style="height: 50px"
                                           :style="{'background-color' : col.buttoncolor}">
-                                            <a :href="col.link">
+                                            <a :href="col.link" target = "_blank">
                                              <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
                                                 {{col.t}}
                                               </span>
@@ -121,14 +121,16 @@
                                 </div>
 
                                 <div v-if="list.sliderdata">
+                                  <vue-flux :options="vfOptions" :images="list.sliderdata" :transitions="vfTransitions" ref="slider">
+                                  </vue-flux>
                                   <!-- <div v-for="slider of list.sliderdata" :key="slider"> -->
-                                    <div>
+                                    
                                     <!-- <div  data-toggle="tooltip" data-placement="top" title="Select Slider"  v-for="slider in list.sliderdata.image" :key="slider"
                                     class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;"> -->
                                   
-                                      <img data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                          class="ivr-el ivr-image elEditing" :src="list.sliderdata.image" data-type="ImageElement">
-                                    </div>
+                                      <!-- <img data-toggle="tooltip" data-placement="top" title="Select Slider"
+                                          class="ivr-el ivr-image elEditing" :src="slider" data-type="ImageElement" @click="selectSlider">
+                                    </div> -->
                                   
                                 </div>
                                
@@ -279,8 +281,8 @@
                               <div class="edit-Replace-Image p15">
                                 <div class="file-upload">
                                   <label>Browse
-                                    <input type="file" @change="previewSlider" accept="image/*">
-                                    <!-- <input type="file" @change="previewSlider" accept="image/*" multiple> -->
+<!--                                    <input type="file" @change="previewSlider" accept="image/*">-->
+                                     <input type="file" ref="input" id="files" @change="previewSlider" multiple>
                                   </label>
                                 </div>
                               </div>
@@ -306,7 +308,7 @@
                             
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
-                              <a class="undo" href="#" style="margin-top: 9px;float:left">
+                              <a class="undo" style="margin-top: 9px;float:left">
                                 <span @click="removeRaw(list)">Undo</span>
                               </a>
                               <!-- <div class="threeButtons" style="float:right">
@@ -318,7 +320,6 @@
                             </div>
                         </div>
                       </div>
-
                       <!--button-->
                       <div v-if="selected === 3">
                         <div class="edit-selected-element block ButtonElement">
@@ -731,8 +732,6 @@
                           </div>
                       </div>
 
-
-
                     </div>
 
                       
@@ -784,12 +783,14 @@ import Navbar from '@/components/Navbar'
 import ColorPickerButton from "@/components/ColorPickerButton";
 // import MarqueeText from 'vue-marquee-text-component'
 import axios from "axios"
+import {VueFlux} from 'vue-flux';
 
 export default {
   name: 'Homepage',
   components: {
     Navbar,
     ColorPickerButton,
+    VueFlux
     // MarqueeText
   },
   data() {
@@ -835,7 +836,7 @@ export default {
         alertContainerColor: "#FFFFFF",
       },
       newBackgroundColor: [],
-      imageData: [],
+      imageData: '',
       sliderData: [],
       currentNumber: 0,
       timer: null,
@@ -844,7 +845,11 @@ export default {
         fields: [],
       },
       GetRaw: [],
-      image: ''
+      vfOptions: {
+         autoplay: true,
+         delay: 1000
+      },
+      vfTransitions: [ 'slide' ],
     }
   },
   methods: {
@@ -948,7 +953,7 @@ export default {
     saveRaw() {
       const data = this.RawData;
       const self = this
-      const URL = 'http://127.0.0.1:8000/api/backends';
+      const URL = 'http://vuesp.localhost/api/backends';
       axios.post(URL, JSON.stringify(data)).then(response => {
         const status = response.data.success;
         self.GetRaw = response.data.data.raw_json;
@@ -974,96 +979,90 @@ export default {
     selectImage () {
           this.$refs.file.click()
       },
-    // previewImage() {
-
-    //   const input = this.$refs.fileInput;
-    //   const file = input.files;
-    //   if (file && file[0]) {
-    //       const reader = new FileReader();
-    //       reader.onload = (e) => {
-    //         this.imageData = e.target.result;
-    //         this.RawData.fields.push({image: this.imageData});
-    //       }
-    //       reader.readAsDataURL(file[0]);
-    //       this.$emit('input', file[0]);
-    //     }
-
-    // },
       // onChangeFileUpload(){
       //   this.image = this.$refs.file.files[0];
       // },
-      previewImage() {
+    previewImage() {
       const image = this.$refs.file.files[0];
-      console.log(image)
       const formData = new FormData();
       formData.append('image', image);
-      const URL = 'http://127.0.0.1:8000/api/image';
-      axios.post(URL, formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data"
-          }
-      }).then(response => {
-        this.imageData = response.data
-        console.log(this.imageData)
-        // this.imageData = response.data.path
-      }).catch(error => {
-        console.log(error.message)
-        console.log('Submit Fail')
-      }
-      );
-
-      // this.RawData.fields.push({image: this.imageData});
-      },
-
-      removepreviewImage(x){
+      // const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      const URL = 'http://vuesp.localhost/api/image';
+      axios.post(URL, formData
+        // ,{
+        //   headers: {
+        //     "Content-Type": "multipart/form-data"
+        //     }
+        // }
+        ).then(response => {
+          const data = response.data;
+          console.log(data)
+          const name = data.image_name;
+          const url = 'http://vuesp.localhost/storage/';
+          this.imageData = url+name;
+          // console.log(this.imageData);
+        this.RawData.fields.push({image: this.imageData});
+        }).catch(error => {
+          console.log(error.message)
+          console.log('Submit Fail')
+        });
+      
+    },
+    removepreviewImage(x){
       console.log(this.imageData);
       this.imageData.splice(x, 1);
         // this.images.splice(key, 1);
-
         if(!this.imageData.length){
-
             this.$refs.im.value = '';
         }
     },
-    previewSlider: function (e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files);
-      // const input = event.target;
-      // if (input.files && input.files[0]) {
-      //   const reader = new FileReader();
-      //   reader.onload = (e) => {
-      //     this.sliderData = e.target.result;
-      //     console.log(this.sliderData);
-      //     this.RawData.fields.push({slider: this.sliderData});
-      //   }
-      //   reader.readAsDataURL(input.files[0]);
-      // }
+    selectSlider () {
+      this.$refs.input.click();
     },
-    createImage(files) {
-      var vm = this;
-      for (var index = 0; index < files.length; index++) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-          // const imageUrl = event.target.result;
-          // vm.images.push(imageUrl);
-          vm.sliderData = event.target.result;
-          // let slider = vm.RawData.fields.push({sliderdata: [{}]});
-          // slider.push({image: vm.sliderData})
-          // vm.RawData.fields.push({sliderdata: [{image: vm.sliderData}]});
-          vm.RawData.fields.push({sliderdata: {image: vm.sliderData}});
-
-
-        //   vm.RawData.fields.push(
-        // {sliderdata: [{
-        //   image: vm.sliderData
-        //   }]
-        //   });
-        }
-        reader.readAsDataURL(files[index]);
+    previewSlider() {
+      const images = this.$refs.input.files;
+      var formData = new FormData();
+      for (var i=0; i < images.length; i++) {
+        let image = images[i];
+        formData.append('images[' + i + ']',image);
+        // formData.append(image.name, image, 'image')
+        // for(var pair of formData.entries()) {
+        //   console.log(pair[0]+ ', '+ pair[1]);
+        //   console.log(pair);
+        // }
       }
+      for (var value of formData.values()) {
+        console.log(value);
+      }
+      const URL = 'http://vuesp.localhost/api/slider';
+      axios.post(URL, formData
+          ,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          ).then(response => {
+        const data = response.data;
+        const images = data.image_name;
+        const url = 'http://vuesp.localhost/storage/';
+        images.map(image => {
+            this.sliderData.push(url+image);
+        });
+        console.log(this.sliderData);
+        this.RawData.fields.push({sliderdata: this.sliderData});
+      }).catch(error => {
+        console.log(error.message)
+        console.log('Submit Fail')
+      });
+    },
+    removepreviewSlider(x){
+      console.log(this.sliderData);
+      this.sliderData.splice(x, 1);
+        // this.images.splice(key, 1);
+        if(!this.sliderData.length){
+            this.$refs.im.value = '';
+        }
     },
   },
   mounted() {
@@ -1175,7 +1174,7 @@ div.color-picker-outer {
 }
 
 .reset_button .reset-all, .select_page_button .select-page {
-  vertical-align: left;
+  vertical-align: middle;
 }
 
 #container {
