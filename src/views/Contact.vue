@@ -1,18 +1,18 @@
 <template>
   <div class="contact">
-    <div class="header">
-      <div class="container">
-        <div class="row">
-          <div class="header col-md-12">
-            <div class="head-top-wrapper">
-              <div class="head_top_right">
-                <navbar></navbar>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="header">-->
+<!--      <div class="container">-->
+<!--        <div class="row">-->
+<!--          <div class="header col-md-12">-->
+<!--            <div class="head-top-wrapper">-->
+<!--              <div class="head_top_right">-->
+<!--                <navbar></navbar>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <h2>Here is contact page</h2>
     <div class="main">
       <div class="container">
@@ -35,13 +35,13 @@
 
 <script>
 
-import Navbar from '@/components/Navbar'
+// import Navbar from '@/components/Navbar'
 import {VueFlux} from 'vue-flux';
 
 export default {
   name: 'Contact',
   components: {
-    Navbar,
+    // Navbar,
     VueFlux,
   },
   data() {

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
+import store from './store'
 import VueSweetalert2 from 'vue-sweetalert2';
 
 // import qs from 'qs'
@@ -19,7 +20,7 @@ import {VueFlux} from 'vue-flux';
 // import { enableRipple } from '@syncfusion/ej2-base';
 
 // enableRipple(true);
-Vue.use(BootstrapVue, axios);
+Vue.use(BootstrapVue, axios, store);
 Vue.use(VueSweetalert2);
 // Vue.use(VueImageSlider);
 // Vue.use(CarouselPlugin)
@@ -30,9 +31,13 @@ Vue.component('marquee-text', MarqueeText)
 Vue.config.productionTip = false
 // Vue.prototype.qs = qs
 
+// const token = localStorage.getItem('token')
+// if (token) {
+//     axios.defaults.headers.common['Authorization'] = token
+// }
+
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
-
-// sM9SAESeiTXCKwd

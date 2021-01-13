@@ -1,18 +1,18 @@
 <template>
   <div class="preview">
-    <div class="header">
-      <div class="container">
-        <div class="row">
-          <div class="header col-md-12">
-            <div class="head-top-wrapper">
-              <div class="head_top_right">
-                <navbar></navbar>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="header">-->
+<!--      <div class="container">-->
+<!--        <div class="row">-->
+<!--          <div class="header col-md-12">-->
+<!--            <div class="head-top-wrapper">-->
+<!--              <div class="head_top_right">-->
+<!--                <navbar></navbar>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="main">
       <!-- <h2>Here is Preview Page</h2> -->
       <child-preview :database="database"></child-preview>
@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
+// import Navbar from '@/components/Navbar'
 import ChildPreview from './ChildPreview.vue'
 
 export default {
   name: "Preview",
   components: {
-    Navbar,
+    // Navbar,
     ChildPreview,
   },
   data(){

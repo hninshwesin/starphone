@@ -1,18 +1,18 @@
 <template>
   <div class="home-page">
-    <div class="header">
-      <div class="container">
-        <div class="row">
-          <div class="header col-md-12">
-            <div class="head-top-wrapper">
-              <div class="head_top_right">
-                <navbar></navbar>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="header">-->
+<!--      <div class="container">-->
+<!--        <div class="row">-->
+<!--          <div class="header col-md-12">-->
+<!--            <div class="head-top-wrapper">-->
+<!--              <div class="head_top_right">-->
+<!--                <navbar></navbar>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="main">
       <h1 class="page-title">Create VIVR</h1>
       <div class="ivr-padding-top-bottom">
@@ -733,21 +733,21 @@
                       </div>
 
                     </div>
-
-                      
-                      
-
+<!--                    <form @submit.prevent="onSubmit">-->
+<!--                      <div class="submit">-->
+<!--                        <button type="submit">Save And Continue</button>-->
+<!--                      </div>-->
+<!--                    </form>-->
                       <div class="ivr-back-next mt40">
                         <!-- <a href="/" class="btn ivr-back-link">&lt;&lt; Back</a> -->
                         <a
                            class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
                            <span @click="saveRaw">Save And Continue</span>
-                           
                         </a>
                         <!-- <a href="/preview"
                            class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
                            <span @click="saveRaw">Save And Continue</span>
-                           
+
                         </a> -->
                       </div>
                     </div>
@@ -779,16 +779,17 @@
 
 <script>
 
-import Navbar from '@/components/Navbar'
+// import Navbar from '@/components/Navbar'
 import ColorPickerButton from "@/components/ColorPickerButton";
 // import MarqueeText from 'vue-marquee-text-component'
 import axios from "axios"
 import {VueFlux} from 'vue-flux';
+// import router from "@/router";
 
 export default {
   name: 'Homepage',
   components: {
-    Navbar,
+    // Navbar,
     ColorPickerButton,
     VueFlux
     // MarqueeText
@@ -950,32 +951,53 @@ export default {
       this.marqueetexts.splice(x, 1);
       // this.saveTexts();
     },
-    saveRaw() {
+    // onSubmit () {
+    //   const data = this.RawData;
+    //   console.log(data)
+    //   this.$store.dispatch('raw', data)
+    // },
+    // created() {
+    //   this.token = this.$route.params.token
+    // },
+    saveRaw () {
       const data = this.RawData;
-      const self = this
-      const URL = 'http://vuesp.localhost/api/backends';
-      axios.post(URL, JSON.stringify(data)).then(response => {
-        const status = response.data.success;
-        self.GetRaw = response.data.data.raw_json;
-        console.log(self.GetRaw)
-        self.$router.push({name: 'Preview', params: {data : self.GetRaw}})
-        // if (status == true) {
-        //   self.$swal.fire({
-        //     title: 'Submitted!',
-        //     text: 'Your Template has been created!',
-        //     icon: 'success',
-        //     timer: 5000
-        //   })
-        //   .then(function () {
-        //         self.$router.push({name: 'Preview', params: {data : self.GetRaw}})
-        //       })
-        // }
-        console.log(status);
-      }).catch(error => {
-        console.log(error.response)
-        console.log('Submit Fail')
-      });
+      console.log(data)
+      this.$store.dispatch('raw', data)
     },
+    // saveRaw() {
+    //   const data = this.RawData;
+    //   console.log(data)
+    //   // const token = this.$store.getters.token;
+    //   // console.log(token)
+    //   const self = this
+    //   const URL = 'http://vuesp.localhost/api/backends';
+    //   axios.post(URL, JSON.stringify(data)
+    //   // ,{
+    //   //  headers: {
+    //   // 'Authorization' : 'Bearer '
+    //   //   }
+    //   // }
+    //   ).then(response => {
+    //     const status = response.data.success;
+    //     self.GetRaw = response.data.data.raw_json;
+    //     self.$router.push({name: 'Preview', params: {data : self.GetRaw}})
+    //     // if (status == true) {
+    //     //   self.$swal.fire({
+    //     //     title: 'Submitted!',
+    //     //     text: 'Your Template has been created!',
+    //     //     icon: 'success',
+    //     //     timer: 5000
+    //     //   })
+    //     //   .then(function () {
+    //     //         self.$router.push({name: 'Preview', params: {data : self.GetRaw}})
+    //     //       })
+    //     // }
+    //     console.log(status);
+    //   }).catch(error => {
+    //     console.log(error.response)
+    //     console.log('Submit Fail')
+    //   });
+    // },
     selectImage () {
           this.$refs.file.click()
       },
@@ -1031,9 +1053,9 @@ export default {
         //   console.log(pair);
         // }
       }
-      for (var value of formData.values()) {
-        console.log(value);
-      }
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
       const URL = 'http://vuesp.localhost/api/slider';
       axios.post(URL, formData
           ,
@@ -1049,7 +1071,7 @@ export default {
         images.map(image => {
             this.sliderData.push(url+image);
         });
-        console.log(this.sliderData);
+        // console.log(this.sliderData);
         this.RawData.fields.push({sliderdata: this.sliderData});
       }).catch(error => {
         console.log(error.message)
@@ -1066,7 +1088,7 @@ export default {
     },
   },
   mounted() {
-
+    // console.log(this.token)
   },
 }
 

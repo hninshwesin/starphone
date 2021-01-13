@@ -1,6 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import Contact from "@/views/Contact";
+import About from "@/views/About";
+import Homepage from "@/components/dashboard/Homepage";
+import Home from "@/views/Home";
+import Preview from "@/views/Preview";
+import signIn from "@/components/auth/signIn";
+import signup from "@/components/auth/signup";
+import store from "@/store";
+
+
 
 Vue.use(VueRouter)
 
@@ -10,23 +20,46 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+    {
+      path: '/create',
+      name: 'Homepage',
+      component: Homepage,
+      beforeEnter (to, from, next) {
+        if (store.state.token) {
+          next()
+        } else {
+          next('/signIn')
+        }
+      }
+    },
   {
     path: '/about',
     name: 'About',
+    component: About
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue')
+    component: Contact
   },
     {
       path: '/preview',
       name: 'Preview',
-      component: () => import(/* webpackChunkName: "contact" */ '../views/Preview.vue')
+      component: Preview
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: signup
+    },
+    {
+      path: '/signIn',
+      name: 'SignIn',
+      component: signIn
     }
 ]
 
