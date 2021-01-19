@@ -25,11 +25,8 @@
       </vue-flux>
       </div>
     </div>
-    
+    <Footer/>
 
-    <!-- <div class="footer">
-                <h2>Footer</h2>
-            </div> -->
   </div>
 </template>
 
@@ -37,10 +34,12 @@
 
 // import Navbar from '@/components/Navbar'
 import {VueFlux} from 'vue-flux';
+import Footer from "@/components/footer/footer";
 
 export default {
   name: 'Contact',
   components: {
+    Footer,
     // Navbar,
     VueFlux,
   },

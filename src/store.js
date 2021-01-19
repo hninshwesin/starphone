@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        token: localStorage.getItem('token') || '',
+        token: null,
         user: null,
         userId: null
     },
@@ -43,7 +43,7 @@ export default new Vuex.Store({
                     localStorage.setItem('token', res.data.data.token)
                     localStorage.setItem('userId', res.data.data.id)
                     commit('authUser', res)
-
+                    router.push("/create")
                 })
                 .catch(error => console.log(error))
         },
@@ -56,7 +56,7 @@ export default new Vuex.Store({
                     // axios.defaults.headers.common['Authorization'] = res.data.token
                     localStorage.setItem('userId', res.data.data.id)
                     commit('authUser', res)
-                   // router.push({name: 'Homepage'})
+                   router.push({name: 'Homepage'})
                 })
                 .catch(error => console.log(error))
         },

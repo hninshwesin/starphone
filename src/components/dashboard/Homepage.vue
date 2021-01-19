@@ -1,18 +1,18 @@
 <template>
   <div class="home-page">
-<!--    <div class="header">-->
-<!--      <div class="container">-->
-<!--        <div class="row">-->
-<!--          <div class="header col-md-12">-->
-<!--            <div class="head-top-wrapper">-->
-<!--              <div class="head_top_right">-->
-<!--                <navbar></navbar>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="header">-->
+    <!--      <div class="container">-->
+    <!--        <div class="row">-->
+    <!--          <div class="header col-md-12">-->
+    <!--            <div class="head-top-wrapper">-->
+    <!--              <div class="head_top_right">-->
+    <!--                <navbar></navbar>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="main">
       <h1 class="page-title">Create VIVR</h1>
       <div class="ivr-padding-top-bottom">
@@ -33,109 +33,120 @@
                     <div class="phone-top"></div>
                     <div class="phone-middle">
                       <div class="ivr-editor" id="ivr-editor">
-                        
+
                         <div data-toggle="tooltip" data-placement="top" title="Select PageElement"
                              class="ivr-el ivr-page elEditing hover-element" data-type="PageElement"
                              :style="{ 'background-color': RawData.BackgroundColor }">
-                             <div v-for="(list, index) in RawData.fields" :key="index">
-                                <div v-if="list.marquee">
-                                  <marquee class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement" 
-                                    bgcolor="white" scrolldelay="120" scrollamount="6" :style="{'text-color' : list.marquee.color}">
-                                    {{list.marquee.t}}
-                                  </marquee>
-                                  <!-- <marquee-text class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement" :repeat=1 :color="list.marquee.color">
-                                   {{list.marquee.t}}
-                                </marquee-text> -->
-                                </div>
+                          <div v-for="(list, index) in RawData.fields" :key="index">
+                            <div v-if="list.marquee">
+                              <marquee class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement"
+                                       bgcolor="white" scrolldelay="120" scrollamount="6"
+                                       :style="{'text-color' : list.marquee.color}">
+                                {{ list.marquee.t }}
+                              </marquee>
+                              <!-- <marquee-text class="ivr-el ivr-running-line elEditing" data-type="RunningLineElement" :repeat=1 :color="list.marquee.color">
+                               {{list.marquee.t}}
+                            </marquee-text> -->
+                            </div>
 
-                                <div v-if="list.text">
-                                  <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : list.text.color}">
-                                    {{list.text.t}}
+                            <div v-if="list.text">
+                                  <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement"
+                                        style="font-size: 25px" :style="{'color' : list.text.color}">
+                                    {{ list.text.t }}
                                   </span>
-                                </div>
-                                
-                                <div v-if="list.button">
-                                  <div class="ivr-el ivr-button elEditing"
-                                      title="Select Button" data-type="ButtonElement" style="height: 50px"
-                                      :style="{'background-color' : list.button.color}">
-                                    <a :href="list.button.link" target = "_blank">
-                                    <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : list.button.textcolor}">
-                                    {{list.button.t}}
+                            </div>
+
+                            <div v-if="list.button">
+                              <div class="ivr-el ivr-button elEditing"
+                                   title="Select Button" data-type="ButtonElement" style="height: 50px"
+                                   :style="{'background-color' : list.button.color}">
+                                <a :href="list.button.link" target="_blank">
+                                    <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement"
+                                          style="font-size: 25px" :style="{'color' : list.button.textcolor}">
+                                    {{ list.button.t }}
                                   </span>
-                                  </a>
+                                </a>
+                              </div>
+                            </div>
+
+                            <div v-if="list.containerdata">
+                              <div v-for="container of list.containerdata" :key="container">
+                                <div class="ivr-el ivr-container"
+                                     title="Select Container" data-type="ContainerElement"
+                                     style="height: 50px;width:50%;float:left"
+                                     :style="{'background-color' : container.backgroundcolor}">
+                                  <div>
+                                    <div v-for="col of container.column" :key="col">
+                                      <div class="ivr-el ivr-button"
+                                           title="Select Button" data-type="ButtonElement" style="height: 50px"
+                                           :style="{'background-color' : col.buttoncolor}">
+                                        <a :href="col.link" target="_blank">
+                                              <span class="ivr-el ivr-text elEditing" title="Select Text"
+                                                    data-type="TextElement" style="font-size: 25px"
+                                                    :style="{'color' : col.textcolor}">
+                                              {{ col.t }}
+                                              </span>
+                                        </a>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
 
-                                <div v-if="list.containerdata">
-                                    <div v-for="container of list.containerdata" :key="container">
-                                      <div class="ivr-el ivr-container"
-                                        title="Select Container" data-type="ContainerElement" style="height: 50px;width:50%;float:left"
-                                        :style="{'background-color' : container.backgroundcolor}">
-                                      <div>
-                                        <div v-for="col of container.column" :key="col">
-                                          <div class="ivr-el ivr-button"
-                                          title="Select Button" data-type="ButtonElement" style="height: 50px"
-                                          :style="{'background-color' : col.buttoncolor}">
-                                            <a :href="col.link" target = "_blank">
-                                              <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
-                                    
-                                              {{col.t}}
+                            <div v-if="list.threecontainerdata">
+                              <div v-for="container of list.threecontainerdata" :key="container">
+                                <div class="ivr-el ivr-container"
+                                     title="Select Container" data-type="ContainerElement"
+                                     style="height: 50px;width:33.33%;float:left"
+                                     :style="{'background-color' : container.backgroundcolor}">
+                                  <div>
+                                    <div v-for="col of container.column" :key="col">
+                                      <div class="ivr-el ivr-button"
+                                           title="Select Button" data-type="ButtonElement" style="height: 50px"
+                                           :style="{'background-color' : col.buttoncolor}">
+                                        <a :href="col.link" target="_blank">
+                                             <span class="ivr-el ivr-text elEditing" title="Select Text"
+                                                   data-type="TextElement" style="font-size: 25px"
+                                                   :style="{'color' : col.textcolor}">
+                                                {{ col.t }}
                                               </span>
-                                            </a>
-                                          </div>
-                                        </div>
+                                        </a>
                                       </div>
                                     </div>
-                                    </div>
+                                  </div>
                                 </div>
+                              </div>
+                            </div>
 
-                                <div v-if="list.threecontainerdata">
-                                  <div v-for="container of list.threecontainerdata" :key="container">
-                                      <div class="ivr-el ivr-container"
-                                        title="Select Container" data-type="ContainerElement" style="height: 50px;width:33.33%;float:left"
-                                        :style="{'background-color' : container.backgroundcolor}">
-                                      <div>
-                                        <div v-for="col of container.column" :key="col">
-                                          <div class="ivr-el ivr-button"
-                                          title="Select Button" data-type="ButtonElement" style="height: 50px"
-                                          :style="{'background-color' : col.buttoncolor}">
-                                            <a :href="col.link" target = "_blank">
-                                             <span class="ivr-el ivr-text elEditing" title="Select Text" data-type="TextElement" style="font-size: 25px" :style="{'color' : col.textcolor}">
-                                                {{col.t}}
-                                              </span>
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                  
 
-                                <div v-if="list.image">
-                                  <div data-toggle="tooltip" data-placement="top" title="Select Image"
-                                    class="ivr-el ivr-image" data-type="ImageElement" style="display:inline-block;width:100%;">
-                                  <img data-toggle="tooltip" data-placement="top" title="Select Image"
-                                      class="ivr-el ivr-image elEditing" :src="list.image" data-type="ImageElement" @click="selectImage">
-                                </div>
-                                </div>
+                            <div v-if="list.image">
+                              <div data-toggle="tooltip" data-placement="top" title="Select Image"
+                                   class="ivr-el ivr-image" data-type="ImageElement"
+                                   style="display:inline-block;width:100%;">
+                                <img data-toggle="tooltip" data-placement="top" title="Select Image"
+                                     class="ivr-el ivr-image elEditing" :src="list.image" data-type="ImageElement"
+                                     @click="selectImage">
+                              </div>
+                            </div>
 
-                                <div v-if="list.sliderdata">
-                                  <vue-flux :options="vfOptions" :images="list.sliderdata" :transitions="vfTransitions" ref="slider">
-                                  </vue-flux>
-                                  <!-- <div v-for="slider of list.sliderdata" :key="slider"> -->
-                                    
-                                    <!-- <div  data-toggle="tooltip" data-placement="top" title="Select Slider"  v-for="slider in list.sliderdata.image" :key="slider"
-                                    class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;"> -->
-                                  
-                                      <!-- <img data-toggle="tooltip" data-placement="top" title="Select Slider"
-                                          class="ivr-el ivr-image elEditing" :src="slider" data-type="ImageElement" @click="selectSlider">
-                                    </div> -->
-                                  
-                                </div>
-                               
-                               
-                             </div>
+                            <div v-if="list.sliderdata">
+                              <vue-flux :options="vfOptions" :images="list.sliderdata" :transitions="vfTransitions"
+                                        ref="slider">
+                              </vue-flux>
+                              <!-- <div v-for="slider of list.sliderdata" :key="slider"> -->
+
+                              <!-- <div  data-toggle="tooltip" data-placement="top" title="Select Slider"  v-for="slider in list.sliderdata.image" :key="slider"
+                              class="ivr-el ivr-slider" data-type="SliderElement" style="display:inline-block;width:100%;direction:rtl;"> -->
+
+                              <!-- <img data-toggle="tooltip" data-placement="top" title="Select Slider"
+                                  class="ivr-el ivr-image elEditing" :src="slider" data-type="ImageElement" @click="selectSlider">
+                            </div> -->
+
+                            </div>
+
+
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -157,7 +168,7 @@
                               <label class="odLabelInline">Color</label><br>
                               <ColorPickerButton
                                   v-bind:field-name="'alertBackgroundColor'"
-                                  v-bind:init-color="colorValue"
+                                  v-bind:init-color="templateModel.alertBackgroundColor"
                                   v-on:update-color="Background"
                               ></ColorPickerButton>
                             </div>
@@ -247,20 +258,20 @@
                             </div> -->
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
-                              <a class="undo" style="margin-top: 9px;float:left">
-                                <span @click="removeRaw(list)">Undo</span>
+                            <a class="undo" style="margin-top: 9px;float:left">
+                              <span @click="removeRaw(list)">Undo</span>
+                            </a>
+                            <div class="threeButtons" style="float:right">
+                              <a class="add-element" data-toggle="tooltip" data-placement="top"
+                                 title="Add Selected Element">
+                                <span @click="addText">Add</span>
                               </a>
-                              <div class="threeButtons" style="float:right">
-                                <a class="add-element" data-toggle="tooltip" data-placement="top"
-                                   title="Add Selected Element">
-                                  <span @click="addText">Add</span>
-                                </a>
-                                <!--                                <a class="remove-element" data-toggle="tooltip" data-placement="top"-->
-                                <!--                                   title="Delete Selected Element" href="#">-->
-                                <!--                                  <span>Delete</span>-->
-                                <!--                                </a>-->
-                              </div>
+                              <!--                                <a class="remove-element" data-toggle="tooltip" data-placement="top"-->
+                              <!--                                   title="Delete Selected Element" href="#">-->
+                              <!--                                  <span>Delete</span>-->
+                              <!--                                </a>-->
                             </div>
+                          </div>
                         </div>
                       </div>
                       <!--slider-->
@@ -281,8 +292,8 @@
                               <div class="edit-Replace-Image p15">
                                 <div class="file-upload">
                                   <label>Browse
-<!--                                    <input type="file" @change="previewSlider" accept="image/*">-->
-                                     <input type="file" ref="input" id="files" @change="previewSlider" multiple>
+                                    <!--                                    <input type="file" @change="previewSlider" accept="image/*">-->
+                                    <input type="file" ref="input" id="files" @change="previewSlider" multiple>
                                   </label>
                                 </div>
                               </div>
@@ -305,19 +316,19 @@
                             <!--                                </form>-->
                             <!--                              </div>-->
                             <!--                            </div>-->
-                            
+
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
-                              <a class="undo" style="margin-top: 9px;float:left">
-                                <span @click="removeRaw(list)">Undo</span>
+                            <a class="undo" style="margin-top: 9px;float:left">
+                              <span @click="removeRaw(list)">Undo</span>
+                            </a>
+                            <!-- <div class="threeButtons" style="float:right">
+                              <a class="remove-element" data-toggle="tooltip" data-placement="top"
+                                 title="Delete Selected Element" href="#">
+                                <span>Delete</span>
                               </a>
-                              <!-- <div class="threeButtons" style="float:right">
-                                <a class="remove-element" data-toggle="tooltip" data-placement="top"
-                                   title="Delete Selected Element" href="#">
-                                  <span>Delete</span>
-                                </a>
-                              </div> -->
-                            </div>
+                            </div> -->
+                          </div>
                         </div>
                       </div>
                       <!--button-->
@@ -328,10 +339,10 @@
                           </div>
                           <div class="edit-selected-element-body block-body">
                             <div class="edit-selected-element-body-group">
-                              <span class="group-title">ButtonColor</span>
+                              <!--                              <span class="group-title">ButtonColor</span>-->
                               <div class="edit-Color p15">
                                 <div class="background-color">
-                                  <label class="odLabelInline">Color</label>
+                                  <label class="odLabelInline">Button Color</label>
                                   <ColorPickerButton
                                       v-bind:field-name="'alertButtonColor'"
                                       v-bind:init-color="templateModel.alertButtonColor"
@@ -350,15 +361,15 @@
                               </div>
                             </div>
                             <div class="edit-Color p15">
-                                      <div class="text-color">
-                                        <label class="odLabelInline">Text Color</label>
-                                        <ColorPickerButton
-                                            v-bind:field-name="'alertTextColor'"
-                                            v-bind:init-color="templateModel.alertTextColor"
-                                            v-on:update-color="UpdatedColor"
-                                        ></ColorPickerButton>
-                                      </div>
+                              <div class="text-color">
+                                <label class="odLabelInline">Text Color</label>
+                                <ColorPickerButton
+                                    v-bind:field-name="'alertTextColor'"
+                                    v-bind:init-color="templateModel.alertTextColor"
+                                    v-on:update-color="UpdatedColor"
+                                ></ColorPickerButton>
                               </div>
+                            </div>
                           </div>
                           <div class="actions-block block">
                             <div class="actions-selector form-group">
@@ -378,7 +389,8 @@
                                   <div class="linkEditor" data-action="link">
                                     <br>
                                     <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
+                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text"
+                                           value="">
                                     <br>
                                   </div>
                                 </form>
@@ -458,16 +470,16 @@
                             </div>
                           </div>
                           <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
-                              <a class="undo" style="margin-top: 9px;float:left">
-                                <span @click="removeRaw(list)">Undo</span>
+                            <a class="undo" style="margin-top: 9px;float:left">
+                              <span @click="removeRaw(list)">Undo</span>
+                            </a>
+                            <!-- <div class="threeButtons" style="float:right">
+                              <a class="remove-element" data-toggle="tooltip" data-placement="top"
+                                 title="Delete Selected Element" href="#">
+                                <span>Delete</span>
                               </a>
-                              <!-- <div class="threeButtons" style="float:right">
-                                <a class="remove-element" data-toggle="tooltip" data-placement="top"
-                                   title="Delete Selected Element" href="#">
-                                  <span>Delete</span>
-                                </a>
-                              </div> -->
-                            </div>
+                            </div> -->
+                          </div>
 
                         </div>
                       </div>
@@ -566,31 +578,32 @@
                                   <div class="linkEditor" data-action="link">
                                     <br>
                                     <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
+                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text"
+                                           value="">
                                     <br>
                                   </div>
                                 </form>
                               </div>
                               <div class="color">
-                                    <div class="edit-Color p15">
-                                      <div class="text-color">
-                                        <label class="odLabelInline">Text Color</label>
-                                        <ColorPickerButton
-                                            v-bind:field-name="'alertTextColor'"
-                                            v-bind:init-color="templateModel.alertTextColor"
-                                            v-on:update-color="UpdatedColor"
-                                        ></ColorPickerButton>
-                                      </div>
-                                      <div class="button-color">
-                                        <label class="odLabelInline">Button Color</label>
-                                        <ColorPickerButton
-                                            v-bind:field-name="'alertButtonColor'"
-                                            v-bind:init-color="templateModel.alertButtonColor"
-                                            v-on:update-color="UpdatedColor"
-                                        ></ColorPickerButton>
-                                      </div>
-                                    </div>
+                                <div class="edit-Color p15">
+                                  <div class="text-color">
+                                    <label class="odLabelInline">Text Color</label>
+                                    <ColorPickerButton
+                                        v-bind:field-name="'alertTextColor'"
+                                        v-bind:init-color="templateModel.alertTextColor"
+                                        v-on:update-color="UpdatedColor"
+                                    ></ColorPickerButton>
                                   </div>
+                                  <div class="button-color">
+                                    <label class="odLabelInline">Button Color</label>
+                                    <ColorPickerButton
+                                        v-bind:field-name="'alertButtonColor'"
+                                        v-bind:init-color="templateModel.alertButtonColor"
+                                        v-on:update-color="UpdatedColor"
+                                    ></ColorPickerButton>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <!-- <br>
                             <div class="edit-selected-element-body-group">
@@ -634,22 +647,22 @@
                             </div> -->
                           </div>
                         </div>
-                          <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
-                            <a class="undo" style="margin-top: 9px;float:left">
-                              <span @click="removeRaw(list)">Undo</span><br>
+                        <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
+                          <a class="undo" style="margin-top: 9px;float:left">
+                            <span @click="removeRaw(list)">Undo</span><br>
+                          </a>
+                          <div class="threeButtons" style="float:right">
+                            <a class="add-element" data-toggle="tooltip" data-placement="top"
+                               title="Add Selected Element">
+                              <span @click="addTwoColContainer">Add</span>
                             </a>
-                            <div class="threeButtons" style="float:right">
-                              <a class="add-element" data-toggle="tooltip" data-placement="top"
-                                 title="Add Selected Element">
-                                <span @click="addTwoColContainer">Add</span>
-                              </a>
-                              <!-- <br>
-                              <a class="remove-element" data-toggle="tooltip" data-placement="top"
-                                 title="Delete Selected Element">
-                                <span @click="removeButtonText">Delete</span>
-                              </a> -->
-                            </div>
+                            <!-- <br>
+                            <a class="remove-element" data-toggle="tooltip" data-placement="top"
+                               title="Delete Selected Element">
+                              <span @click="removeButtonText">Delete</span>
+                            </a> -->
                           </div>
+                        </div>
                       </div>
 
                       <!--three column container -->
@@ -686,101 +699,104 @@
                                   <div class="linkEditor" data-action="link">
                                     <br>
                                     <input type="hidden" name="type" value="default">
-                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text" value="">
+                                    <input name="link" v-model="newLink" placeholder="Please Type Link" type="text"
+                                           value="">
                                     <br>
                                   </div>
                                 </form>
                               </div>
                               <div class="color">
-                                    <div class="edit-Color p15">
-                                      <div class="text-color">
-                                        <label class="odLabelInline">Text Color</label>
-                                        <ColorPickerButton
-                                            v-bind:field-name="'alertTextColor'"
-                                            v-bind:init-color="templateModel.alertTextColor"
-                                            v-on:update-color="UpdatedColor"
-                                        ></ColorPickerButton>
-                                      </div>
-                                      <div class="button-color">
-                                        <label class="odLabelInline">Button Color</label>
-                                        <ColorPickerButton
-                                            v-bind:field-name="'alertButtonColor'"
-                                            v-bind:init-color="templateModel.alertButtonColor"
-                                            v-on:update-color="UpdatedColor"
-                                        ></ColorPickerButton>
-                                      </div>
-                                    </div>
+                                <div class="edit-Color p15">
+                                  <div class="text-color">
+                                    <label class="odLabelInline">Text Color</label>
+                                    <ColorPickerButton
+                                        v-bind:field-name="'alertTextColor'"
+                                        v-bind:init-color="templateModel.alertTextColor"
+                                        v-on:update-color="UpdatedColor"
+                                    ></ColorPickerButton>
                                   </div>
+                                  <div class="button-color">
+                                    <label class="odLabelInline">Button Color</label>
+                                    <ColorPickerButton
+                                        v-bind:field-name="'alertButtonColor'"
+                                        v-bind:init-color="templateModel.alertButtonColor"
+                                        v-on:update-color="UpdatedColor"
+                                    ></ColorPickerButton>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                          <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
-                            <a class="undo" style="margin-top: 9px;float:left">
-                              <span @click="removeRaw(list)">Undo</span><br>
+                        <div class="edit-selected-element-bottom block-bottom border-radius-style no-frame">
+                          <a class="undo" style="margin-top: 9px;float:left">
+                            <span @click="removeRaw(list)">Undo</span><br>
+                          </a>
+                          <div class="threeButtons" style="float:right">
+                            <a class="add-element" data-toggle="tooltip" data-placement="top"
+                               title="Add Selected Element">
+                              <span @click="addThreeColContainer">Add</span>
                             </a>
-                            <div class="threeButtons" style="float:right">
-                              <a class="add-element" data-toggle="tooltip" data-placement="top"
-                                 title="Add Selected Element">
-                                <span @click="addThreeColContainer">Add</span>
-                              </a>
-                              <!-- <br>
-                              <a class="remove-element" data-toggle="tooltip" data-placement="top"
-                                 title="Delete Selected Element">
-                                <span @click="removeButtonText">Delete</span>
-                              </a> -->
-                            </div>
+                            <!-- <br>
+                            <a class="remove-element" data-toggle="tooltip" data-placement="top"
+                               title="Delete Selected Element">
+                              <span @click="removeButtonText">Delete</span>
+                            </a> -->
                           </div>
-                      </div>
-
-                    </div>
-<!--                    <form @submit.prevent="onSubmit">-->
-<!--                      <div class="submit">-->
-<!--                        <button type="submit">Save And Continue</button>-->
-<!--                      </div>-->
-<!--                    </form>-->
-                      <div class="ivr-back-next mt40">
-                        <!-- <a href="/" class="btn ivr-back-link">&lt;&lt; Back</a> -->
-                        <a
-                           class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
-                           <span @click="saveRaw">Save And Continue</span>
-                        </a>
-                        <!-- <a href="/preview"
-                           class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
-                           <span @click="saveRaw">Save And Continue</span>
-
-                        </a> -->
+                        </div>
                       </div>
                     </div>
+                    <!--                    <form @submit.prevent="onSubmit">-->
+                    <!--                      <div class="submit">-->
+                    <!--                        <button type="submit">Save And Continue</button>-->
+                    <!--                      </div>-->
+                    <!--                    </form>-->
+                    <div class="ivr-back-next mt40">
+                      <!-- <a href="/" class="btn ivr-back-link">&lt;&lt; Back</a> -->
+                      <a
+                          class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
+                        <span @click="saveRaw">Save And Continue</span>
+                      </a>
+                      <!-- <a href="/preview"
+                         class="save-temp command-to-save edit-url btn ivr-next-link form-btn-lilac-normal">
+                         <span @click="saveRaw">Save And Continue</span>
 
+                      </a> -->
+                    </div>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <Footer/>
   </div>
-    
 
-    <!--    <div class="footer">-->
-    <!--      <div class="container">-->
-    <!--        <div class="footer_block">-->
-    <!--          <ul>-->
-    <!--            <li class="title"><a href="/#">Services</a></li>-->
-    <!--            <li>-->
-    <!--              <a href="/#">Create Visual IVR</a>-->
-    <!--            </li>-->
-    <!--          </ul>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-  
+
+  <!--    <div class="footer">-->
+  <!--      <div class="container">-->
+  <!--        <div class="footer_block">-->
+  <!--          <ul>-->
+  <!--            <li class="title"><a href="/#">Services</a></li>-->
+  <!--            <li>-->
+  <!--              <a href="/#">Create Visual IVR</a>-->
+  <!--            </li>-->
+  <!--          </ul>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+
 </template>
 
 <script>
 
 // import Navbar from '@/components/Navbar'
 import ColorPickerButton from "@/components/ColorPickerButton";
+import Footer from "@/components/footer/footer"
+
 // import MarqueeText from 'vue-marquee-text-component'
 import axios from "axios"
 import {VueFlux} from 'vue-flux';
@@ -791,7 +807,8 @@ export default {
   components: {
     // Navbar,
     ColorPickerButton,
-    VueFlux
+    VueFlux,
+    Footer
     // MarqueeText
   },
   data() {
@@ -813,7 +830,7 @@ export default {
         // {id: 4, value: 'ContactSMS'},
         // {id: 5, value: 'ContactForm'},
       ],
-      
+
       selected: null,
       selectedaction: null,
       // texts: [],
@@ -847,10 +864,10 @@ export default {
       },
       GetRaw: [],
       vfOptions: {
-         autoplay: true,
-         delay: 1000
+        autoplay: true,
+        delay: 1000
       },
-      vfTransitions: [ 'slide' ],
+      vfTransitions: ['slide'],
     }
   },
   methods: {
@@ -859,7 +876,7 @@ export default {
       this.templateModel[fieldName] = colorValue;
       this.newBackgroundColor.push({pagecolour: this.templateModel[fieldName]});
     },
-    Background(colorValue){
+    Background(colorValue) {
       this.RawData.BackgroundColor = colorValue;
     },
     addText() {
@@ -880,7 +897,14 @@ export default {
       // const element = document.getElementById('newtexts');
       // element.innerHTML = this.newText;
       // this.buttontexts.push({t: this.newText});
-      this.RawData.fields.push({button: {t: this.newText, color: this.templateModel.alertButtonColor, link: this.newLink, textcolor: this.templateModel.alertTextColor}});
+      this.RawData.fields.push({
+        button: {
+          t: this.newText,
+          color: this.templateModel.alertButtonColor,
+          link: this.newLink,
+          textcolor: this.templateModel.alertTextColor
+        }
+      });
       this.newText = '';
       this.newLink = '';
       // console.log(this.RawData.fields);
@@ -889,34 +913,36 @@ export default {
     },
 
     addTwoColContainer() {
-      
+
       this.RawData.fields.push(
-        {containerdata: [{
-          backgroundcolor: this.templateModel.alertContainerColor,
-          column: [{
-            buttoncolor: this.templateModel.alertButtonColor,
-            t: this.newText, 
-            link: this.newLink,
-            textcolor: this.templateModel.alertTextColor
+          {
+            containerdata: [{
+              backgroundcolor: this.templateModel.alertContainerColor,
+              column: [{
+                buttoncolor: this.templateModel.alertButtonColor,
+                t: this.newText,
+                link: this.newLink,
+                textcolor: this.templateModel.alertTextColor
+              }]
             }]
-          }]
           });
       this.newLink = '';
       this.newText = '';
     },
 
     addThreeColContainer() {
-      
+
       this.RawData.fields.push(
-        {threecontainerdata: [{
-          backgroundcolor: this.templateModel.alertContainerColor,
-          column: [{
-            buttoncolor: this.templateModel.alertButtonColor,
-            t: this.newText, 
-            link: this.newLink,
-            textcolor: this.templateModel.alertTextColor
+          {
+            threecontainerdata: [{
+              backgroundcolor: this.templateModel.alertContainerColor,
+              column: [{
+                buttoncolor: this.templateModel.alertButtonColor,
+                t: this.newText,
+                link: this.newLink,
+                textcolor: this.templateModel.alertTextColor
+              }]
             }]
-          }]
           });
       this.newLink = '';
       this.newText = '';
@@ -935,9 +961,9 @@ export default {
       // console.log(this.marqueetexts)
       // this.saveTexts();
     },
-    removeRaw(list){
+    removeRaw(list) {
       let index = this.RawData.fields.indexOf(list)
-      this.RawData.fields.splice(index,1);
+      this.RawData.fields.splice(index, 1);
     },
     removeText(x) {
       this.texts.splice(x, 1);
@@ -959,7 +985,7 @@ export default {
     // created() {
     //   this.token = this.$route.params.token
     // },
-    saveRaw () {
+    saveRaw() {
       const data = this.RawData;
       console.log(data)
       this.$store.dispatch('raw', data)
@@ -998,12 +1024,12 @@ export default {
     //     console.log('Submit Fail')
     //   });
     // },
-    selectImage () {
-          this.$refs.file.click()
-      },
-      // onChangeFileUpload(){
-      //   this.image = this.$refs.file.files[0];
-      // },
+    selectImage() {
+      this.$refs.file.click()
+    },
+    // onChangeFileUpload(){
+    //   this.image = this.$refs.file.files[0];
+    // },
     previewImage() {
       const image = this.$refs.file.files[0];
       const formData = new FormData();
@@ -1011,42 +1037,42 @@ export default {
       // const proxyurl = "https://cors-anywhere.herokuapp.com/";
       const URL = 'http://vuesp.localhost/api/image';
       axios.post(URL, formData
-        // ,{
-        //   headers: {
-        //     "Content-Type": "multipart/form-data"
-        //     }
-        // }
-        ).then(response => {
-          const data = response.data;
-          console.log(data)
-          const name = data.image_name;
-          const url = 'http://vuesp.localhost/storage/';
-          this.imageData = url+name;
-          // console.log(this.imageData);
+          // ,{
+          //   headers: {
+          //     "Content-Type": "multipart/form-data"
+          //     }
+          // }
+      ).then(response => {
+        const data = response.data;
+        console.log(data)
+        const name = data.image_name;
+        const url = 'http://vuesp.localhost/storage/';
+        this.imageData = url + name;
+        // console.log(this.imageData);
         this.RawData.fields.push({image: this.imageData});
-        }).catch(error => {
-          console.log(error.message)
-          console.log('Submit Fail')
-        });
-      
+      }).catch(error => {
+        console.log(error.message)
+        console.log('Submit Fail')
+      });
+
     },
-    removepreviewImage(x){
+    removepreviewImage(x) {
       console.log(this.imageData);
       this.imageData.splice(x, 1);
-        // this.images.splice(key, 1);
-        if(!this.imageData.length){
-            this.$refs.im.value = '';
-        }
+      // this.images.splice(key, 1);
+      if (!this.imageData.length) {
+        this.$refs.im.value = '';
+      }
     },
-    selectSlider () {
+    selectSlider() {
       this.$refs.input.click();
     },
     previewSlider() {
       const images = this.$refs.input.files;
       var formData = new FormData();
-      for (var i=0; i < images.length; i++) {
+      for (var i = 0; i < images.length; i++) {
         let image = images[i];
-        formData.append('images[' + i + ']',image);
+        formData.append('images[' + i + ']', image);
         // formData.append(image.name, image, 'image')
         // for(var pair of formData.entries()) {
         //   console.log(pair[0]+ ', '+ pair[1]);
@@ -1064,12 +1090,12 @@ export default {
               'Content-Type': 'multipart/form-data'
             }
           }
-          ).then(response => {
+      ).then(response => {
         const data = response.data;
         const images = data.image_name;
         const url = 'http://vuesp.localhost/storage/';
         images.map(image => {
-            this.sliderData.push(url+image);
+          this.sliderData.push(url + image);
         });
         // console.log(this.sliderData);
         this.RawData.fields.push({sliderdata: this.sliderData});
@@ -1078,13 +1104,13 @@ export default {
         console.log('Submit Fail')
       });
     },
-    removepreviewSlider(x){
+    removepreviewSlider(x) {
       console.log(this.sliderData);
       this.sliderData.splice(x, 1);
-        // this.images.splice(key, 1);
-        if(!this.sliderData.length){
-            this.$refs.im.value = '';
-        }
+      // this.images.splice(key, 1);
+      if (!this.sliderData.length) {
+        this.$refs.im.value = '';
+      }
     },
   },
   mounted() {
@@ -1302,25 +1328,25 @@ div.color-picker-outer {
 }
 
 .ivr-button {
-    display: inline-block;
-    min-height: 40px;
-    height: 1.42em;
-    color: #444;
-    border: 1px solid #CCC;
-    background: #DDD;
-    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
-    cursor: pointer;
-    padding: 5px 2px;
-    text-align: center;
-    margin: 1px auto;
+  display: inline-block;
+  min-height: 40px;
+  height: 1.42em;
+  color: #444;
+  border: 1px solid #CCC;
+  background: #DDD;
+  box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 5px 2px;
+  text-align: center;
+  margin: 1px auto;
 }
 
 .ivr-container {
-    display: inline-block;
-    margin: 0 auto;
-    vertical-align: top;
-    text-align: center;
-    width: 100%;
+  display: inline-block;
+  margin: 0 auto;
+  vertical-align: top;
+  text-align: center;
+  width: 100%;
 }
 
 .ivr-text {
@@ -1768,6 +1794,7 @@ input[type=checkbox] {
   text-decoration: none;
   color: #000;
 }
+
 .mt40 {
   margin-top: 30px;
 }
@@ -1789,11 +1816,11 @@ input[type=checkbox] {
 }
 
 .form-btn-lilac-normal {
-    background: #29b1e7 none repeat scroll 0 0;
-    border: 1px solid #29b1e7;
-    border-radius: 3px;
-    color: #fff!important;
-    cursor: pointer;
+  background: #29b1e7 none repeat scroll 0 0;
+  border: 1px solid #29b1e7;
+  border-radius: 3px;
+  color: #fff !important;
+  cursor: pointer;
 }
 
 </style>

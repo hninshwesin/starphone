@@ -37,14 +37,17 @@
         </div>
       </form>
     </div>
+    <Footer/>ooo
   </div>
 </template>
 
 <script>
-import router from "@/router";
+// import router from "@/router";
 
+import Footer from "@/components/footer/footer";
 export default {
 name: "signup",
+  components: {Footer},
   data () {
     return {
       name: '',
@@ -64,7 +67,7 @@ name: "signup",
       }
       console.log(formData)
       this.$store.dispatch('signup', formData)
-      .then(()=> router.push("/create"))
+      // .then(()=> router.push("/create"))
     }
   }
 }

@@ -35,9 +35,7 @@
         </p>
       </div>
     </div>
-    <!-- <div class="footer">
-            <h2>Footer</h2>
-        </div> -->
+    <Footer/>
   </div>
 </template>
 
@@ -45,9 +43,11 @@
 
 // import Navbar from '@/components/Navbar'
 
+import Footer from "@/components/footer/footer";
 export default {
   name: 'About',
   components: {
+    Footer
     // Navbar,
   },
   data() {

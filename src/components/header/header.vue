@@ -1,5 +1,5 @@
 <template>
-  <header id="header">
+  <div class="header">
     <div class="logo">
       <ul>
         <li>
@@ -29,7 +29,7 @@
         </li>
       </ul>
     </nav>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -52,13 +52,13 @@ export default {
 * {
   cursor: pointer;
 }
-#header {
+.header {
   height: 56px;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  background-color:#747080;
+  background-color:skyblue;
   padding: 0 20px;
 }
 .logo {

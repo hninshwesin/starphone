@@ -8,6 +8,7 @@
     <Header />
     <router-view/>
   </div>
+
 </template>
 
 <script>
@@ -18,7 +19,7 @@ import Header from "@/components/header/header";
 export default {
   name: "App",
   components: {
-    Header
+    Header,
   },
   created () {
     this.$store.dispatch('AutoLogin')

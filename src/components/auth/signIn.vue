@@ -21,14 +21,17 @@
         </div>
       </form>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import router from "@/router";
+// import router from "@/router";
 
+import Footer from "@/components/footer/footer";
 export default {
 name: "signIn",
+  components: {Footer},
   data () {
     return {
       email: '',
@@ -43,7 +46,7 @@ name: "signIn",
       }
       console.log(formData)
       this.$store.dispatch('login', formData)
-      .then(() => router.push({name: 'Homepage'}))
+      // .then(() => router.push({name: 'Homepage'}))
     }
   }
 }

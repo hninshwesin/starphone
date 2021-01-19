@@ -9,8 +9,8 @@ import Preview from "@/views/Preview";
 import signIn from "@/components/auth/signIn";
 import signup from "@/components/auth/signup";
 import store from "@/store";
-
-
+import Template from "@/views/Template";
+import BrandName from "@/components/BrandName";
 
 Vue.use(VueRouter)
 
@@ -60,6 +60,16 @@ Vue.use(VueRouter)
       path: '/signIn',
       name: 'SignIn',
       component: signIn
+    },
+    {
+      path: '/template',
+      name: 'Template',
+      component: Template
+    },
+    {
+      path: '/brandName',
+      name: 'brandName',
+      component: BrandName
     }
 ]
 
